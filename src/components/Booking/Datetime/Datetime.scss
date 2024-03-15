@@ -1,0 +1,62 @@
+.datetime-container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+
+  .booking-info-row {
+    display: flex;
+  }
+
+  .booking-info-icon {
+    width: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .booking-info-content {
+    margin-left: 0.5rem;
+    font-size: 1rem;
+  }
+}
+
+.datetime-main {
+  margin-top: 10rem;
+  margin-left: 2rem;
+}
+
+.session {
+  margin-top: 1rem;
+}
+
+.session-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.time-booking-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.time-booking-button {
+  margin-right: 1rem;
+  font-size: 1rem;
+  height: 2.2rem;
+  border-color: transparent;
+}
+
+
+
+.datetime-button-box {
+  margin: 1rem 0;
+}
+
+.datetime-button {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 1rem;
+}

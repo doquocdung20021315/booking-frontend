@@ -1,0 +1,205 @@
+.register-page {
+  height: 100vh;
+  // width: 100%;
+  // background-color: rgb(33, 37, 41);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+// #error-message {
+//   position: absolute;
+//   top: 10px;
+//   z-index: 2;
+// }
+
+// .error-message {
+//   background-color: white;
+//   display: flex;
+//   align-items: center;
+//   padding: 10px;
+//   margin-bottom: 16px;
+//   border-radius: 2px;
+//   animation:
+//     slideDown 0.3s ease,
+//     fadeOut linear 1s 2s forwards;
+// }
+
+// .error-icon {
+//   background-color: #ff4d4f;
+//   color: white;
+//   margin-right: 5px;
+//   width: 20px;
+//   height: 20px;
+//   font-size: 14px;
+//   border-radius: 50%;
+//   font-weight: 500;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// @keyframes slideDown {
+//   from {
+//     opacity: 0;
+//     transform: translateY(calc(-100% - 10px));
+//   }
+//   to {
+//     opacity: 1;
+//     transform: 0;
+//   }
+// }
+
+// @keyframes fadeOut {
+//   to {
+//     opacity: 0;
+//   }
+// }
+
+.register-form.ant-form {
+  // height: 500px;
+  width: 600px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.register-name {
+  color: #faad14;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px 0 20px 0;
+}
+
+.register-label {
+  width: 500px;
+  text-align: left;
+  margin-bottom: 4px;
+
+  .star {
+    color: #ff4d4f;
+  }
+}
+
+.register-form-item {
+  .ant-col-16 {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .register-input {
+    height: 35px;
+    // background-color: #5b5f64;
+    border-radius: 5px;
+    border: none;
+  }
+
+  // .ant-input::placeholder {
+  //   color: red;
+  // }
+
+  .ant-btn-primary {
+    height: 35px;
+    width: 100%;
+    // background-color: #7f1e6c;
+    box-shadow: none;
+    border: none;
+    border-radius: 5px;
+    margin: 10px 0;
+  }
+
+  // .ant-btn.ant-btn-primary:hover {
+  //   background-color: #333;
+  // }
+}
+
+.register-form-item.ant-form-item {
+  width: 500px;
+  margin: 0 0 10px 0;
+}
+
+.register-input.ant-input {
+  &:focus {
+    border: 1px solid rgba(87, 184, 70, 0.8);
+    box-shadow: 0 0 8px 0 rgba(87, 184, 70, 0.8);
+
+    &::placeholder {
+      color: transparent;
+    }
+  }
+
+  &:hover {
+    border: 1px solid rgba(87, 184, 70, 0.8);
+  }
+
+  &.ant-input-status-error:hover {
+    border: 1px solid #ff4d4f;
+  }
+}
+
+.register-input.ant-input-affix-wrapper-focused {
+  border: 1px solid rgba(87, 184, 70, 0.8);
+  box-shadow: 0 0 8px 0 rgba(87, 184, 70, 0.8);
+
+  .ant-input::placeholder {
+    color: transparent;
+  }
+}
+
+.register-input.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+  border: 1px solid rgba(87, 184, 70, 0.8);
+}
+
+.register-birthday-gender {
+  display: flex;
+  width: 500px;
+  justify-content: space-between;
+
+  .register-label {
+    width: 100%;
+  }
+
+  .register-form-item {
+    width: 100%;
+  }
+
+  .ant-picker-focused.ant-picker {
+    border: 1px solid rgba(87, 184, 70, 0.8);
+    box-shadow: 0 0 8px 0 rgba(87, 184, 70, 0.8);
+  }
+
+  .ant-picker:hover {
+    border: 1px solid rgba(87, 184, 70, 0.8);
+  }
+
+  .ant-select-focused.ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(
+      .ant-pagination-size-changer
+    )
+    .ant-select-selector {
+    border: 1px solid rgba(87, 184, 70, 0.8);
+    box-shadow: 0 0 8px 0 rgba(87, 184, 70, 0.8);
+  }
+
+  .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer)
+    .ant-select-selector:hover {
+    border: 1px solid rgba(87, 184, 70, 0.8);
+  }
+}
+
+.register-birthday {
+  width: 45%;
+}
+
+.register-gender {
+  width: 45%;
+}
+
+.register-button.ant-btn > span {
+  font-size: 16px;
+  font-weight: 500;
+}

@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 3rem;
+  box-shadow: 0px 5px 6px -6px #999999;
+  background-color: white;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
+
+.anchor {
+  list-style-type: none;
+  display: flex;
+}
+
+.anchor-item {
+  margin: 0 1rem;
+  font-size: 1.2rem;
+}
+
+.anchor-item-link {
+  text-decoration: none;
+  color: black;
+}
+
+.anchor-item-link:hover {
+  color: blue;
+}

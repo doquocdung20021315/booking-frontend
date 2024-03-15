@@ -1,0 +1,125 @@
+.confirm-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.confirm-box {
+  margin-top: 5rem;
+}
+
+.confirm-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.confirm-profile {
+  margin: 1rem 0;
+}
+
+.confirm-profile-row {
+  display: flex;
+}
+
+.confirm-profile-cell {
+  display: flex;
+  width: 50%;
+  margin: 0.25rem;
+}
+
+.confirm-profile-info {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+}
+
+.confirm-doctor {
+  margin: 1rem 0;
+}
+
+.confirm-doctor-row {
+  display: flex;
+}
+
+.confirm-doctor-cell {
+  display: flex;
+  width: 50%;
+}
+
+.confirm-doctor-icon {
+  width: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirm-doctor-info {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+}
+
+.confirm-row {
+  display: flex;
+}
+
+.confirm-facility-card {
+  margin-right: 1rem;
+}
+
+.confirm-facility {
+  display: flex;
+}
+
+.confirm-facility-img {
+  display: flex;
+  align-items: center;
+}
+
+.confirm-facility-name {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.confirm-facility-location {
+  font-size: 1rem;
+}
+
+.confirm-datetime {
+  display: flex;
+}
+
+.confirm-datetime-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+
+  i {
+    font-size: 2rem;
+    color: #faad14;
+  }
+}
+
+.confirm-datetime-title {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.confirm-datetime-content {
+  font-size: 1rem;
+}
+
+.confirm-button-box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.confirm-button {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 1rem;
+}

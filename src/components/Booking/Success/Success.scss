@@ -1,0 +1,98 @@
+.success-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  .ant-card-body {
+    padding: 0 1rem 1rem 1rem;
+  }
+}
+
+.success-icon {
+  color: rgb(3, 161, 3);
+  font-size: 3rem;
+  margin-top: 5rem;
+}
+
+.success-text {
+  color: rgb(3, 161, 3);
+  font-size: 1.5rem;
+}
+
+.success-profile-row {
+  display: flex;
+}
+
+.success-profile-cell {
+  display: flex;
+  width: 50%;
+  margin: 0.25rem;
+}
+
+.success-profile-info {
+  margin-left: 0.5rem;
+}
+
+.success-facility {
+  display: flex;
+}
+
+.success-facility-img {
+  display: flex;
+  align-items: center;
+}
+
+.success-facility-name {
+  font-weight: 500;
+}
+
+.success-doctor {
+  display: flex;
+}
+
+.success-doctor-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+
+  i {
+    font-size: 2.5rem;
+    color: #1677ff;
+  }
+}
+
+.success-doctor-name {
+  font-weight: 500;
+}
+
+.success-datetime {
+  display: flex;
+}
+
+.success-datetime-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+
+  i {
+    font-size: 2rem;
+    color: #faad14;
+  }
+}
+
+.success-datetime-title {
+  font-weight: 500;
+}
+
+.success-button-box {
+  width: 30rem;
+  margin-top: 0.5rem;
+}
+
+.success-button {
+  width: 30rem;
+}

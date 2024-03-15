@@ -1,0 +1,71 @@
+.doctor-container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+
+  .booking-info-row {
+    display: flex;
+  }
+
+  .booking-info-icon {
+    width: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .booking-info-content {
+    margin-left: 0.5rem;
+    font-size: 1rem;
+  }
+}
+
+.doctor-main {
+  margin-top: 10rem;
+  margin-left: 2rem;
+}
+
+.doctor-info {
+  margin: 10px;
+  box-shadow: 0 0 8px 0 #ccc;
+  cursor: pointer;
+}
+
+.doctor-info:hover {
+  box-shadow: 0 0 4px 0 #1677ff;
+}
+
+.doctor-info-row {
+  display: flex;
+}
+
+.doctor-info-icon {
+  width: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.doctor-info-content {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+}
+
+.doctor-name {
+  color: #faad14;
+
+  .doctor-info-content {
+    font-weight: 600;
+  }
+}
+
+.doctor-button-box {
+  margin: 1rem 0;
+}
+
+.doctor-button {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 1rem;
+}
