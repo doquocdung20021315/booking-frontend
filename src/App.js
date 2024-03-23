@@ -18,6 +18,7 @@ import Facility from "./components/Booking/Facility/Facility";
 import { getAllFacility } from "./reducers/listFacilitySlice";
 import Confirm from "./components/Booking/Confirm/Confirm";
 import Success from "./components/Booking/Success/Success";
+import { getAllAppointmentAccount } from "./reducers/appointmentSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       dispatch(getInfoAccount({ token }));
+      dispatch(getAllAppointmentAccount({ token }));
     }
     dispatch(getAllFacility());
   }, []);
@@ -57,7 +59,7 @@ function App() {
             </Link>
           </li>
           <li className="anchor-item">
-            {account ? (
+            {account.fullname !== "" ? (
               <Link className="anchor-item-link" to="/proflie">
                 {account.fullname}
               </Link>

@@ -62,10 +62,7 @@
 
 .confirm-row {
   display: flex;
-}
-
-.confirm-facility-card {
-  margin-right: 1rem;
+  margin: 1rem 0;
 }
 
 .confirm-facility {
@@ -84,6 +81,35 @@
 
 .confirm-facility-location {
   font-size: 1rem;
+}
+
+.confirm-specialist {
+  display: flex;
+}
+
+.confirm-specialist-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+
+  i {
+    font-size: 2rem;
+    color: #1677ff;
+  }
+}
+
+.confirm-specialist-title {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.confirm-specialist-content {
+  font-size: 1rem;
+}
+
+.confirm-datetime-card {
+  margin-left: 1rem;
 }
 
 .confirm-datetime {
@@ -114,7 +140,7 @@
 .confirm-button-box {
   display: flex;
   justify-content: space-between;
-  margin-top: 1rem;
+  // margin-top: 1rem;
 }
 
 .confirm-button {

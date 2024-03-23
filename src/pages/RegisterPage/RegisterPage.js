@@ -131,7 +131,7 @@ const RegisterPage = () => {
               name="birthday"
               rules={[{ required: true, message: 'Hãy nhập ngày sinh của bạn!' }]}
             >
-              <DatePicker format="DD/MM/YYYY" placeholder="Chọn ngày sinh"/>
+              <DatePicker format="DD-MM-YYYY" placeholder="Chọn ngày sinh"/>
             </Form.Item>
           </div>
 
@@ -149,11 +149,11 @@ const RegisterPage = () => {
                 placeholder="Chọn giới tính"
                 options={[
                   {
-                    value: 'M',
+                    value: 'Nam',
                     label: 'Nam',
                   },
                   {
-                    value: 'FM',
+                    value: 'Nữ',
                     label: 'Nữ',
                   },
                 ]}

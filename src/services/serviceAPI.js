@@ -23,6 +23,12 @@ class ServiceAPI extends ServiceBase {
     return response;
   };
 
+  updateInfoAccount = async (data) => {
+    const url = '/account/updateInfoAccount';
+    const response = await this.service.put(url, data);
+    return response;
+  };
+
   getListDoctor = async () => {
     const url = '/doctor/getListDoctor';
     const response = await this.service.get(url);
@@ -50,6 +56,24 @@ class ServiceAPI extends ServiceBase {
   searchFacility = async (data) => {
     const url = '/facility/searchFacility';
     const response = await this.service.post(url, data);
+    return response;
+  };
+
+  book = async (data) => {
+    const url = '/appointment/book';
+    const response = await this.service.post(url, data);
+    return response;
+  };
+
+  getAllAppointmentAccount = async (data) => {
+    const url = '/appointment/getAllAppointmentAccount';
+    const response = await this.service.post(url, data);
+    return response;
+  };
+
+  deleteAppointmentAccount = async (data) => {
+    const url = '/appointment/deleteAppointmentAccount';
+    const response = await this.service.delete(url, { data });
     return response;
   };
 }

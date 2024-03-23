@@ -23,12 +23,21 @@ const Specialist = () => {
   // console.log(listSpecialist)
 
   const handleClickSpecialist = (specialist) => {
-    navigate("/booking/doctor", {
-      state: {
-        facility: location.state.facility,
-        specialist: specialist,
-      },
-    });
+    if (location.state.facility.service === "Y tế") {
+      navigate("/booking/doctor", {
+        state: {
+          facility: location.state.facility,
+          specialist: specialist,
+        },
+      });
+    } else if (location.state.facility.service === "Hành chính") {
+      navigate("/booking/datetime", {
+        state: {
+          facility: location.state.facility,
+          specialist: specialist,
+        },
+      });
+    }
   };
 
   const handleClickBack = () => {
@@ -44,10 +53,12 @@ const Specialist = () => {
             textAlign: "center",
             fontSize: "1.2rem",
           }}
-          style={{ marginTop: "10rem" }}
+          style={{ marginTop: "10rem", width: "18rem" }}
         >
           <div className="booking-info-row">
-            <div className="booking-info-icon"><i className="fa-solid fa-building"></i></div>
+            <div className="booking-info-icon">
+              <i className="fa-solid fa-building"></i>
+            </div>
             <span className="booking-info-content">
               Cơ sở: {location.state.facility.name}
             </span>
@@ -57,7 +68,11 @@ const Specialist = () => {
 
       <div className="specialist-main">
         <Card
-          title="Vui lòng chọn chuyên khoa"
+          title={
+            location.state.facility.service === "Y tế"
+              ? "Vui lòng chọn chuyên khoa"
+              : "Vui lòng chọn lĩnh vực"
+          }
           headStyle={{
             textAlign: "center",
             fontSize: "1.2rem",

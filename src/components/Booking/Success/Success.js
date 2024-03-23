@@ -13,8 +13,6 @@ const Success = () => {
 
   // console.log(location.state);
 
-  const selectDate = dayjs(location.state.date);
-
   const handleClickBook = () => {
     navigate("/");
   };
@@ -41,7 +39,7 @@ const Success = () => {
             </div>
             <div className="success-profile-cell">
               <div><i className="fa-solid fa-mars-and-venus"></i></div>
-              <span className="success-profile-info">Giới tính: {account.gender === "M" ? "Nam" : "Nữ"}</span>
+              <span className="success-profile-info">Giới tính: {account.gender}</span>
             </div>
           </div>
           <div className="success-profile-row">
@@ -59,11 +57,17 @@ const Success = () => {
         <h4>THÔNG TIN ĐẶT LỊCH</h4>
           <div className="success-facility">
             <div className="success-facility-img">
-              <img 
-                src="https://dtnh.hcmulaw.edu.vn/upload/images/LOGO/health-heart-free-vector-icon-800x566.jpg" 
-                alt="img-hospital" 
-                width="64"
-              />
+              {location.state.facility.service === "Y tế"
+                ? <img 
+                    src="https://dtnh.hcmulaw.edu.vn/upload/images/LOGO/health-heart-free-vector-icon-800x566.jpg" 
+                    alt="img-hospital" 
+                    width="64"
+                  />
+                : <img 
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4_3kqoCf3mzByz9BAD-iljhvMCU4W8EbQdQ&usqp=CAU" 
+                    alt="img-administrative" 
+                    width="64"
+                  />}
             </div>
             <div>
               <div className="success-facility-name">{location.state.facility.name}</div>
@@ -71,19 +75,29 @@ const Success = () => {
             </div>
           </div>
           <hr />
-          <div className="success-doctor">
-            <div className="success-doctor-icon">
-              <i className="fa-solid fa-user-doctor"></i>
-            </div>
-            <div>
-              <div className="success-doctor-name">
-                {location.state.doctor.degree + " " + location.state.doctor.name}
+          {location.state.facility.service === "Y tế"
+            ? <div className="success-doctor">
+                <div className="success-doctor-icon">
+                  <i className="fa-solid fa-user-doctor"></i>
+                </div>
+                <div>
+                  <div className="success-doctor-name">
+                    {location.state.doctor.degree + " " + location.state.doctor.name}
+                  </div>
+                  <div>Giới tính: {location.state.doctor.gender}</div>
+                  <div>Chuyên khoa: {location.state.doctor.specialist}</div>
+                  <div>Giá khám: {location.state.doctor.price}đ</div>
+                </div>
               </div>
-              <div>Giới tính: {location.state.doctor.gender}</div>
-              <div>Chuyên khoa: {location.state.doctor.specialist}</div>
-              <div>Giá khám: {location.state.doctor.price}đ</div>
-            </div>
-          </div>
+            : <div className="success-specialist">
+                <div className="success-specialist-icon">
+                  <i className="fa-solid fa-ticket"></i>
+                </div>
+                <div>
+                  <div className="success-specialist-title">Lĩnh vực</div>
+                  <div>{location.state.specialist}</div>
+                </div>
+              </div>}
           <hr />
           <div className="success-datetime">
             <div className="success-datetime-icon">
@@ -91,7 +105,7 @@ const Success = () => {
             </div>
             <div>
               <div className="success-datetime-title">Thời gian</div>
-              <div>{location.state.time} ngày {selectDate.format("DD-MM-YYYY")}</div>
+              <div>{location.state.time} ngày {location.state.date}</div>
             </div>
           </div>
       </Card>

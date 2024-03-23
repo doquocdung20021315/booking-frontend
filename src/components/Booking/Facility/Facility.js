@@ -88,7 +88,7 @@ const Facility = () => {
   };
 
   const handleClickFacility = (facility) => {
-    if (account) {
+    if (account.fullname !== "") {
       navigate("/booking/specialist", {
         state: { facility: facility },
       });
@@ -135,7 +135,13 @@ const Facility = () => {
             <Meta
               className="facility-content"
               avatar={
-                <Avatar src="https://dtnh.hcmulaw.edu.vn/upload/images/LOGO/health-heart-free-vector-icon-800x566.jpg" />
+                <Avatar
+                  src={
+                    facility.service === "Y tế"
+                      ? "https://dtnh.hcmulaw.edu.vn/upload/images/LOGO/health-heart-free-vector-icon-800x566.jpg"
+                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4_3kqoCf3mzByz9BAD-iljhvMCU4W8EbQdQ&usqp=CAU"
+                  }
+                />
               }
               title={facility.name}
               description={facility.location}
@@ -156,6 +162,14 @@ const Facility = () => {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Quay lại
+          </Button>,
+          <Button key="login" type="primary" onClick={handleOk}>
+            Đăng nhập
+          </Button>,
+        ]}
       >
         <p>Bạn cần đăng nhập để sử dụng tính năng này.</p>
       </Modal>

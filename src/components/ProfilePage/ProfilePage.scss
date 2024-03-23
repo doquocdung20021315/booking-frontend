@@ -3,4 +3,95 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0 15%;
+}
+
+.profile-img {
+  margin-top: 5rem;
+  font-size: 10rem;
+  color: gainsboro;
+}
+
+.profile-row {
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.profile-birthday-gender {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-birthday {
+  width: 48%;
+}
+
+.profile-gender {
+  width: 48%;
+}
+
+.profile-label {
+  padding: 0.25rem 0;
+  margin-top: 1rem;
+}
+
+.profile-content {
+  border-radius: 0.5rem;
+  background-color: gainsboro;
+  padding: 6px 8px;
+}
+
+.profile-button-box {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.profile-button {
+  font-size: 1rem;
+  height: 2.2rem;
+  border-color: transparent;
+}
+
+.profile-update-modal {
+  .ant-modal-title {
+    font-size: 1.2rem;
+  }
+}
+
+.profile-update-row {
+  margin: 0.5rem 0;
+}
+
+.profile-update-birthday-gender {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-update-birthday {
+  width: 48%;
+}
+
+.profile-update-gender {
+  width: 48%;
+}
+
+.profile-update-label {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.profile-update-input {
+  width: 100%;
+}
+
+#error-message-modify-pass {
+  display: none;
+  color: #ff4d4f;
+  font-size: 1rem;
+}
+
+#error-message-modify-pass.error-message-modify-pass-block {
+  display: block;
 }

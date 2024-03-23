@@ -27,6 +27,7 @@ const Doctor = () => {
     navigate("/booking/datetime", {
       state: {
         doctor: doctor,
+        specialist: location.state.specialist,
         facility: location.state.facility,
       },
     });
@@ -45,7 +46,7 @@ const Doctor = () => {
             textAlign: "center",
             fontSize: "1.2rem",
           }}
-          style={{ marginTop: "10rem" }}
+          style={{ marginTop: "10rem", width: "18rem" }}
         >
           <div className="booking-info-row">
             <div className="booking-info-icon"><i className="fa-solid fa-building"></i></div>

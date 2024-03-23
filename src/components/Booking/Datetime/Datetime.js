@@ -15,26 +15,38 @@ const Datetime = () => {
   // console.log(location.state);
 
   const fDate = moment();
-  const tDate = moment().add(8, "days");
+  const tDate = moment().add(12, "days");
 
   const validRangeDate = [dayjs(fDate.format()), dayjs(tDate.format())];
 
   const [selectDate, setSelectDate] = useState("");
 
   const onSelectDate = (date) => {
-    setSelectDate(date.toString());
+    setSelectDate(date.format("DD-MM-YYYY"));
     setshowTime(true);
   };
 
   const handleClickTime = (value) => {
-    navigate("/booking/confirm", {
-      state: {
-        doctor: location.state.doctor,
-        facility: location.state.facility,
-        date: selectDate,
-        time: value,
-      },
-    });
+    if (location.state.facility.service === "Y tế") {
+      navigate("/booking/confirm", {
+        state: {
+          doctor: location.state.doctor,
+          specialist: location.state.specialist,
+          facility: location.state.facility,
+          date: selectDate,
+          time: value,
+        },
+      });
+    } else if (location.state.facility.service === "Hành chính") {
+      navigate("/booking/confirm", {
+        state: {
+          specialist: location.state.specialist,
+          facility: location.state.facility,
+          date: selectDate,
+          time: value,
+        },
+      });
+    }
   }
 
   const handleClickBack = () => {
@@ -50,7 +62,7 @@ const Datetime = () => {
             textAlign: "center",
             fontSize: "1.2rem",
           }}
-          style={{ marginTop: "10rem" }}
+          style={{ marginTop: "10rem", width: "18rem" }}
         >
           <div className="booking-info-row">
             <div className="booking-info-icon"><i className="fa-solid fa-building"></i></div>
@@ -59,25 +71,34 @@ const Datetime = () => {
             </span>
           </div>
 
-          <div className="booking-info-row">
-            <div className="booking-info-icon"><i className="fa-solid fa-briefcase-medical"></i></div>
-            <span className="booking-info-content">
-              Chuyên khoa: {location.state.doctor.specialist}
-            </span>
-          </div>
+          {location.state.facility.service === "Y tế"
+            ? <div className="booking-info-row">
+                <div className="booking-info-icon"><i className="fa-solid fa-briefcase-medical"></i></div>
+                <span className="booking-info-content">
+                  Chuyên khoa: {location.state.doctor.specialist}
+                </span>
+              </div>
+            : <div className="booking-info-row">
+                <div className="booking-info-icon"><i className="fa-solid fa-ticket"></i></div>
+                <span className="booking-info-content">
+                  Lĩnh vực: {location.state.specialist}
+                </span>
+              </div>}
 
-          <div className="booking-info-row">
-            <div className="booking-info-icon"><i className="fa-solid fa-stethoscope"></i></div>
-            <span className="booking-info-content">
-              Bác sĩ: {location.state.doctor.degree + " " + location.state.doctor.name}
-            </span>
-          </div>
+          {location.state.facility.service === "Y tế" 
+            ? <div className="booking-info-row">
+                <div className="booking-info-icon"><i className="fa-solid fa-stethoscope"></i></div>
+                <span className="booking-info-content">
+                  Bác sĩ: {location.state.doctor.degree + " " + location.state.doctor.name}
+                </span>
+              </div> 
+            : ""}
         </Card>
       </div>
 
       <div className="datetime-main">
         <Card
-          title="Vui lòng chọn lịch khám"
+          title="Vui lòng chọn lịch hẹn"
           headStyle={{
             textAlign: "center",
             fontSize: "1.2rem",

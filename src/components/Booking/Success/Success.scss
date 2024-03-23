@@ -68,6 +68,26 @@
   font-weight: 500;
 }
 
+.success-specialist {
+  display: flex;
+}
+
+.success-specialist-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+
+  i {
+    font-size: 2rem;
+    color: #1677ff;
+  }
+}
+
+.success-specialist-title {
+  font-weight: 500;
+}
+
 .success-datetime {
   display: flex;
 }
