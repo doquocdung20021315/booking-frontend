@@ -13,8 +13,23 @@ export const searchFacility = createAsyncThunk("facility/searchFacility", async 
   return service?.searchFacility(data);
 });
 
+export const getInfoFacility = createAsyncThunk("facility/getInfoFacility", async (data) => {
+  const service = servicesManager.serviceAPI;
+  return service?.getInfoFacility(data);
+});
+
+export const addFacility = createAsyncThunk("facility/addFacility", async (data) => {
+  const service = servicesManager.serviceAPI;
+  return service?.addFacility(data);
+});
+
+export const deleteFacility = createAsyncThunk("facility/deleteFacility", async (data) => {
+  const service = servicesManager.serviceAPI;
+  return service?.deleteFacility(data);
+});
+
 const listFacilitySlice = createSlice({
-  name: "facility",
+  name: "listFacility",
   initialState,
   reducers: {},
   extraReducers(builder) {

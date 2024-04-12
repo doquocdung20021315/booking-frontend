@@ -17,6 +17,7 @@ const RegisterPage = () => {
         birthday: values.birthday.format('DD-MM-YYYY'),
         gender: values.gender,
         phone: values.phone,
+        email: values.email,
       }))
 
       if (payload.message === "Người dùng đã tồn tại") {
@@ -52,7 +53,7 @@ const RegisterPage = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Lỗi:', errorInfo);
+    // console.log('Lỗi:', errorInfo);
   };
 
   return (
@@ -172,6 +173,18 @@ const RegisterPage = () => {
           rules={[{ required: true, message: 'Hãy nhập số điện thoại của bạn!' }]}
         >
           <Input className="register-input" placeholder="Nhập số điện thoại" />
+        </Form.Item>
+
+        <div className="register-label">
+          <span>Email</span>
+          <span> (<span className="star">*</span>) </span>
+        </div>
+        <Form.Item
+          className="register-form-item"
+          name="email"
+          rules={[{ required: true, message: 'Hãy nhập email của bạn!' }]}
+        >
+          <Input className="register-input" placeholder="Nhập email" />
         </Form.Item>
 
         <Form.Item className="register-form-item" wrapperCol={{ offset: 8, span: 16 }}>

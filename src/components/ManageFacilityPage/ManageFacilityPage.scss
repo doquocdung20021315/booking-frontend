@@ -1,0 +1,107 @@
+.manage-facility-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4.5rem 1rem 1rem 1rem;
+}
+
+.manage-facility-box {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  .ant-card-head {
+    padding: 0 1rem;
+  }
+
+  .ant-card-body {
+    padding: 1rem;
+  }
+
+  .facility-title {
+    font-weight: 500;
+  }
+
+  .specialist-list {
+    height: 9rem;
+    overflow: auto;
+  }
+
+  .specialist-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+  }
+
+  .specialist-name {
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  .specialist-name:hover {
+    color: blue;
+  }
+}
+
+.manage-facility-list-doctor {
+  background-color: white;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.manage-facility-doctor-row {
+  display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  padding: 0.5rem 1rem;
+
+  .list-doctor-title {
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+
+  .add-doctor-button {
+    margin-left: 1rem;
+  }
+}
+
+.modify-facility-modal {
+  .modify-modal-row {
+    margin: 0.5rem 0;
+  }
+
+  .modify-modal-label {
+    margin-bottom: 0.25rem;
+  }
+}
+
+#error-message-modify-facility {
+  display: none;
+  color: #ff4d4f;
+}
+
+#error-message-modify-facility.error-message-modify-facility-block {
+  display: block;
+}
+
+#error-message-add-specialist {
+  display: none;
+  color: #ff4d4f;
+}
+
+#error-message-add-specialist.error-message-add-specialist-block {
+  display: block;
+}
+
+#error-message-add-doctor {
+  display: none;
+  color: #ff4d4f;
+}
+
+#error-message-add-doctor.error-message-add-doctor-block {
+  display: block;
+}

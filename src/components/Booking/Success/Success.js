@@ -1,12 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import "./Success.scss";
+import { CheckCircleFilled } from "@ant-design/icons";
 import { Button, Card } from "antd";
 import dayjs from "dayjs";
-import { CheckCircleFilled } from "@ant-design/icons";
+import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./Success.scss";
 
 const Success = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const account = useSelector((state) => state.account);
@@ -50,6 +49,16 @@ const Success = () => {
             <div className="success-profile-cell">
               <div><i className="fa-solid fa-phone"></i></div>
               <span className="success-profile-info">SĐT: {account.phone}</span>
+            </div>
+          </div>
+          <div className="success-profile-row">
+            <div className="success-profile-cell">
+              <div>
+                <i className="fa-solid fa-envelope"></i>
+              </div>
+              <span className="success-profile-info">
+                Email: {account.email}
+              </span>
             </div>
           </div>
         </div>
@@ -105,7 +114,7 @@ const Success = () => {
             </div>
             <div>
               <div className="success-datetime-title">Thời gian</div>
-              <div>{location.state.time} ngày {location.state.date}</div>
+              <div>{location.state.time} ngày {dayjs(location.state.date, "YYYY-MM-DD").format("DD-MM-YYYY")}</div>
             </div>
           </div>
       </Card>

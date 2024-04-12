@@ -27,6 +27,7 @@ const ProfilePage = () => {
   const [birthday, setBirthday] = useState(account.birthday);
   const [gender, setGender] = useState(account.gender);
   const [phone, setPhone] = useState(account.phone);
+  const [email, setEmail] = useState(account.email);
 
   const [openPass, setOpenPass] = useState(false);
   const [oldPass, setOldPass] = useState("");
@@ -38,6 +39,7 @@ const ProfilePage = () => {
     setBirthday(account.birthday);
     setGender(account.gender);
     setPhone(account.phone);
+    setEmail(account.email);
     setOpen(true);
   };
 
@@ -50,6 +52,7 @@ const ProfilePage = () => {
         birthday,
         gender,
         phone,
+        email,
       })
     );
     setOpen(false);
@@ -72,6 +75,10 @@ const ProfilePage = () => {
 
   const handleChangePhone = (e) => {
     setPhone(e.target.value);
+  };
+
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
   };
 
   const handleClickPass = () => {
@@ -128,6 +135,7 @@ const ProfilePage = () => {
         fullname: "",
         gender: "",
         phone: "",
+        email: "",
         username: "",
         _id: "",
       })
@@ -160,6 +168,11 @@ const ProfilePage = () => {
       <div className="profile-row">
         <div className="profile-label">Số điện thoại</div>
         <div className="profile-content">{account.phone}</div>
+      </div>
+
+      <div className="profile-row">
+        <div className="profile-label">Email</div>
+        <div className="profile-content">{account.email}</div>
       </div>
 
       <div className="profile-button-box">
@@ -246,8 +259,18 @@ const ProfilePage = () => {
           <Input
             className="profile-update-input"
             value={phone}
-            placeholder="Nhập Số điện thoại"
+            placeholder="Nhập số điện thoại"
             onChange={handleChangePhone}
+          />
+        </div>
+
+        <div className="profile-update-row">
+          <div className="profile-update-label">Email</div>
+          <Input
+            className="profile-update-input"
+            value={email}
+            placeholder="Nhập email"
+            onChange={handleChangeEmail}
           />
         </div>
       </Modal>

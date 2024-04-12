@@ -7,6 +7,9 @@ import {
   deleteAppointmentAccount,
   getAllAppointmentAccount,
 } from "../../reducers/appointmentSlice";
+import { getInfoFacility } from "../../reducers/listFacilitySlice";
+import { getInfoDoctor } from "../../reducers/listDoctorBookingSlice";
+import dayjs from "dayjs";
 
 const AppointmentPage = () => {
   const dispatch = useDispatch();
@@ -24,8 +27,14 @@ const AppointmentPage = () => {
   // console.log(listAppointment.length);
 
   const [isModalOpen, setIsModalOpen] = useState(true);
+
   const [infoModalOpen, setInfoModalOpen] = useState(false);
+  const [cancelModalOpen, setCancelModalOpen] = useState(false);
+  const [modifyModalOpen, setModifyModalOpen] = useState(false);
+
   const [infoAppointment, setInfoAppointment] = useState(null);
+  const [modifyAppointment, setModifyAppointment] = useState(null);
+  const [cancelAppointment, setCancelAppointment] = useState(null);
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -46,17 +55,67 @@ const AppointmentPage = () => {
     setInfoModalOpen(false);
   };
 
-  const handleClickCancel = async (appointment) => {
+  const handleClickModify = (appointment) => {
+    setModifyAppointment(appointment);
+    setModifyModalOpen(true);
+  };
+
+  const handleOkModifyModal = async () => {
+    const facility = await dispatch(
+      getInfoFacility({ facilityID: modifyAppointment.facilityID })
+    );
+
+    if (modifyAppointment.service === "Y tế") {
+      const doctor = await dispatch(
+        getInfoDoctor({ doctorID: modifyAppointment.doctorID })
+      );
+      
+      navigate("/booking/datetime", {
+        state: {
+          doctor: doctor?.payload,
+          facility: facility?.payload,
+          specialist: modifyAppointment.specialist,
+          isModify: true,
+          modifyAppointmentId: modifyAppointment._id,
+        },
+      });
+    } else if (modifyAppointment.service === "Hành chính") {
+      navigate("/booking/datetime", {
+        state: {
+          facility: facility?.payload,
+          specialist: modifyAppointment.specialist,
+          isModify: true,
+          modifyAppointmentId: modifyAppointment._id,
+        },
+      });
+    }
+  };
+
+  const handleCancelModifyModal = () => {
+    setModifyModalOpen(false);
+  };
+
+  const handleClickCancel = (appointment) => {
+    setCancelAppointment(appointment);
+    setCancelModalOpen(true);
+  };
+
+  const handleOkCancelModal = async () => {
     const token = localStorage.getItem("token");
     if (token) {
       await dispatch(
         deleteAppointmentAccount({
           token,
-          appointmentId: appointment._id,
+          appointmentId: cancelAppointment._id,
         })
       );
       await dispatch(getAllAppointmentAccount({ token }));
     }
+    setCancelModalOpen(false);
+  };
+
+  const handleCancelCancelModal = () => {
+    setCancelModalOpen(false);
   };
 
   return (
@@ -78,7 +137,7 @@ const AppointmentPage = () => {
                 <div className="appointment-img">
                   <img
                     src={
-                      appointment.facility.service === "Y tế"
+                      appointment.service === "Y tế"
                         ? "https://dtnh.hcmulaw.edu.vn/upload/images/LOGO/health-heart-free-vector-icon-800x566.jpg"
                         : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4_3kqoCf3mzByz9BAD-iljhvMCU4W8EbQdQ&usqp=CAU"
                     }
@@ -89,13 +148,13 @@ const AppointmentPage = () => {
 
                 <div className="appointment-content">
                   <div className="appointment-name">
-                    {appointment.facility.name}
+                    {appointment.facilityName}
                   </div>
                   <div className="appointment-location">
-                    {appointment.facility.location}
+                    {appointment.location}
                   </div>
                   <div className="appointment-datetime">
-                    {appointment.time} ngày {appointment.date}
+                    {appointment.time} ngày {dayjs(appointment.date, "YYYY-MM-DD").format("DD-MM-YYYY")}
                   </div>
                 </div>
               </div>
@@ -106,6 +165,9 @@ const AppointmentPage = () => {
                   onClick={() => handleClickInfo(appointment)}
                 >
                   Chi tiết
+                </Button>
+                <Button onClick={() => handleClickModify(appointment)}>
+                  Đổi lịch
                 </Button>
                 <Button onClick={() => handleClickCancel(appointment)}>
                   Hủy lịch
@@ -180,12 +242,34 @@ const AppointmentPage = () => {
               <span className="success-profile-info">SĐT: {account.phone}</span>
             </div>
           </div>
+          <div className="success-profile-row">
+            <div className="success-profile-cell">
+              <div>
+                <i className="fa-solid fa-envelope"></i>
+              </div>
+              <span className="success-profile-info">
+                Email: {account.email}
+              </span>
+            </div>
+          </div>
         </div>
 
         <div className="appointment-title">Thông tin đặt lịch</div>
+        <div className="success-code">
+          <div className="success-code-icon">
+            <i className="fa-brands fa-codepen"></i>
+          </div>
+          <div>
+            <div className="success-code-title">Mã số</div>
+            <div>
+              {infoAppointment?._id}
+            </div>
+          </div>
+        </div>
+        <hr />
         <div className="success-facility">
           <div className="success-facility-img">
-            {infoAppointment?.facility.service === "Y tế" ? (
+            {infoAppointment?.service === "Y tế" ? (
               <img
                 src="https://dtnh.hcmulaw.edu.vn/upload/images/LOGO/health-heart-free-vector-icon-800x566.jpg"
                 alt="img-hospital"
@@ -201,26 +285,26 @@ const AppointmentPage = () => {
           </div>
           <div>
             <div className="success-facility-name">
-              {infoAppointment?.facility.name}
+              {infoAppointment?.facilityName}
             </div>
-            <div>{infoAppointment?.facility.location}</div>
+            <div>{infoAppointment?.location}</div>
           </div>
         </div>
         <hr />
-        {infoAppointment?.facility.service === "Y tế" ? (
+        {infoAppointment?.service === "Y tế" ? (
           <div className="success-doctor">
             <div className="success-doctor-icon">
               <i className="fa-solid fa-user-doctor"></i>
             </div>
             <div>
               <div className="success-doctor-name">
-                {infoAppointment?.doctor.degree +
+                {infoAppointment?.doctorDegree +
                   " " +
-                  infoAppointment?.doctor.name}
+                  infoAppointment?.doctorName}
               </div>
-              <div>Giới tính: {infoAppointment?.doctor.gender}</div>
-              <div>Chuyên khoa: {infoAppointment?.doctor.specialist}</div>
-              <div>Giá khám: {infoAppointment?.doctor.price}đ</div>
+              <div>Giới tính: {infoAppointment?.doctorGender}</div>
+              <div>Chuyên khoa: {infoAppointment?.specialist}</div>
+              <div>Giá khám: {infoAppointment?.doctorPrice}đ</div>
             </div>
           </div>
         ) : (
@@ -242,10 +326,44 @@ const AppointmentPage = () => {
           <div>
             <div className="success-datetime-title">Thời gian</div>
             <div>
-              {infoAppointment?.time} ngày {infoAppointment?.date}
+              {infoAppointment?.time} ngày {dayjs(infoAppointment?.date, "YYYY-MM-DD").format("DD-MM-YYYY")}
             </div>
           </div>
         </div>
+      </Modal>
+
+      <Modal
+        title="Xác nhận hủy lịch"
+        open={cancelModalOpen}
+        onOk={handleOkCancelModal}
+        onCancel={handleCancelCancelModal}
+        footer={[
+          <Button key="back" onClick={handleCancelCancelModal}>
+            Quay lại
+          </Button>,
+          <Button key="confirm" type="primary" onClick={handleOkCancelModal}>
+            Hủy lịch
+          </Button>,
+        ]}
+      >
+        <p>Bạn có chắc chắn muốn hủy lịch hẹn này không?</p>
+      </Modal>
+
+      <Modal
+        title="Xác nhận đổi lịch"
+        open={modifyModalOpen}
+        onOk={handleOkModifyModal}
+        onCancel={handleCancelModifyModal}
+        footer={[
+          <Button key="back" onClick={handleCancelModifyModal}>
+            Quay lại
+          </Button>,
+          <Button key="confirm" type="primary" onClick={handleOkModifyModal}>
+            Đổi lịch
+          </Button>,
+        ]}
+      >
+        <p>Bạn có chắc chắn muốn đổi lịch hẹn này không?</p>
       </Modal>
     </div>
   );

@@ -1,0 +1,61 @@
+.admin-account-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4.5rem 1rem 1rem 1rem;
+
+  // .ant-table-row {
+  //   cursor: pointer;
+  // }
+}
+
+.admin-account-box {
+  background-color: white;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.admin-account-search {
+  display: flex;
+  margin: 1rem;
+
+  .ant-input-affix-wrapper {
+    height: 2.5rem;
+  }
+
+  .ant-input-search-button {
+    height: 2.5rem;
+  }
+
+  .ant-btn {
+    height: 2.5rem;
+  }
+}
+
+.list-account {
+  overflow: auto;
+}
+
+.admin-account-table {
+  min-width: 1300px;
+}
+
+.admin-account-create-modal {
+  .create-modal-row {
+    margin: 0.5rem 0;
+  }
+
+  .create-modal-label {
+    margin-bottom: 0.25rem;
+  }
+}
+
+#error-message-create-account {
+  display: none;
+  color: #ff4d4f;
+}
+
+#error-message-create-account.error-message-create-account-block {
+  display: block;
+}

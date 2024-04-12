@@ -8,8 +8,13 @@ export const getListDoctorBooking = createAsyncThunk("doctor/getListDoctorBookin
   return service?.getListDoctorSpecialist(data);
 });
 
+export const getInfoDoctor = createAsyncThunk("doctor/getInfoDoctor", async (data) => {
+  const service = servicesManager.serviceAPI;
+  return service?.getInfoDoctor(data);
+});
+
 const listDoctorBookingSlice = createSlice({
-  name: "doctor booking",
+  name: "listDoctorBooking",
   initialState,
   reducers: {},
   extraReducers(builder) {

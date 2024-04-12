@@ -1,0 +1,55 @@
+.manage-appointment-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4.5rem 1rem 1rem 1rem;
+
+  .ant-table-row {
+    cursor: pointer;
+  }
+}
+
+.manage-appointment-box {
+  background-color: white;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.manage-appointment-tab-list {
+  display: flex;
+
+  .tab-active {
+    border-bottom: 2px solid #1677ff;
+  }
+}
+
+.manage-appointment-tab {
+  width: calc(1/3 * 100%);
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 1rem 0;
+}
+
+.manage-appointment-search {
+  margin: 1rem 10%;
+
+  .ant-input-affix-wrapper {
+    height: 2.5rem;
+  }
+
+  .ant-input-search-button {
+    height: 2.5rem;
+  }
+}
+
+.check-button-come {
+  background-color: #27fa14;
+}
+
+.check-button-not-come {
+  background-color: #ff4d4f;
+}

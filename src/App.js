@@ -19,6 +19,11 @@ import { getAllFacility } from "./reducers/listFacilitySlice";
 import Confirm from "./components/Booking/Confirm/Confirm";
 import Success from "./components/Booking/Success/Success";
 import { getAllAppointmentAccount } from "./reducers/appointmentSlice";
+import ManageAppointmentPage from "./pages/ManageAppointmentPage/ManageAppointmentPage";
+import AdminFacilityPage from "./pages/AdminFacilityPage/AdminFacilityPage";
+import AdminAccountPage from "./pages/AdminAccountPage/AdminAccountPage";
+import { getAllAccountByNotRole } from "./reducers/listAccountSlice";
+import ManageFacilityPage from "./pages/ManageFacilityPage/ManageFacilityPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +39,11 @@ function App() {
       dispatch(getAllAppointmentAccount({ token }));
     }
     dispatch(getAllFacility());
+    dispatch(
+      getAllAccountByNotRole({
+        roleId: "3",
+      })
+    );
   }, []);
 
   return (
@@ -48,16 +58,67 @@ function App() {
               Trang chủ
             </Link>
           </li>
-          <li className="anchor-item">
-            <Link className="anchor-item-link" to="/booking/facility">
-              Đặt lịch
-            </Link>
-          </li>
-          <li className="anchor-item">
-            <Link className="anchor-item-link" to="/appointment">
-              Lịch hẹn
-            </Link>
-          </li>
+
+          {account?.roleId === "1" || !account?.roleId ? (
+            <li className="anchor-item">
+              <Link className="anchor-item-link" to="/booking/facility">
+                Đặt lịch
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+
+          {account?.roleId === "1" || !account?.roleId ? (
+            <li className="anchor-item">
+              <Link className="anchor-item-link" to="/appointment">
+                Lịch hẹn
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+
+          {account?.roleId === "2" ? (
+            <li className="anchor-item">
+              <Link className="anchor-item-link" to="/manage/appointment">
+                Quản lý lịch hẹn
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+
+          {account?.roleId === "2" ? (
+            <li className="anchor-item">
+              <Link className="anchor-item-link" to="/manage/facility">
+                Quản lý cơ sở
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+
+          {account?.roleId === "3" ? (
+            <li className="anchor-item">
+              <Link className="anchor-item-link" to="/admin/facility">
+                Quản lý cơ sở
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+
+          {account?.roleId === "3" ? (
+            <li className="anchor-item">
+              <Link className="anchor-item-link" to="/admin/account">
+                Quản lý tài khoản
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+
           <li className="anchor-item">
             {account.fullname !== "" ? (
               <Link className="anchor-item-link" to="/proflie">
@@ -85,6 +146,10 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/proflie" element={<ProfilePage />} />
         <Route path="/appointment" element={<AppointmentPage />} />
+        <Route path="/manage/appointment" element={<ManageAppointmentPage />} />
+        <Route path="/manage/facility" element={<ManageFacilityPage />} />
+        <Route path="/admin/facility" element={<AdminFacilityPage />} />
+        <Route path="/admin/account" element={<AdminAccountPage />} />
       </Routes>
     </div>
   );

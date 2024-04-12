@@ -35,6 +35,26 @@
   margin-left: 0.5rem;
 }
 
+.success-code {
+  display: flex;
+}
+
+.success-code-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+
+  i {
+    font-size: 2rem;
+    color: #27fa14;
+  }
+}
+
+.success-code-title {
+  font-weight: 500;
+}
+
 .success-facility {
   display: flex;
 }

@@ -6,6 +6,7 @@ const initialState = {
   fullname: "",
   gender: "",
   phone: "",
+  email: "",
   username: "",
   _id: "",
 };
@@ -25,6 +26,14 @@ export const getInfoAccount = createAsyncThunk(
   async (data) => {
     const service = servicesManager.serviceAPI;
     return service?.getInfoAccount(data);
+  }
+);
+
+export const getInfoAcc = createAsyncThunk(
+  "account/getInfoAcc",
+  async (data) => {
+    const service = servicesManager.serviceAPI;
+    return service?.getInfoAcc(data);
   }
 );
 
