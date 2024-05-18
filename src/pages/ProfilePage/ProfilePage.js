@@ -19,6 +19,8 @@ const ProfilePage = () => {
     const token = localStorage.getItem("token");
     if (token) {
       dispatch(getInfoAccount({ token }));
+    } else {
+      navigate("/");
     }
   }, []);
 
@@ -129,6 +131,11 @@ const ProfilePage = () => {
 
   const handleClickLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("roleId");
+    const facilityID = localStorage.getItem("facilityID");
+    if (facilityID) {
+      localStorage.removeItem("facilityID");
+    }
     dispatch(
       setLogin({
         birthday: "",

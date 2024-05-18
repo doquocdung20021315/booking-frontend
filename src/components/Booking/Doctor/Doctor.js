@@ -15,10 +15,16 @@ const Doctor = () => {
   // console.log(location.state)
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const roleId = localStorage.getItem("roleId");
+    if (!token || roleId !== "1" || !location.state) {
+      navigate("/");
+    }
+
     dispatch(
       getListDoctorBooking({
-        facilityID: location.state.facility.facilityID,
-        specialist: location.state.specialist,
+        facilityID: location.state?.facility.facilityID,
+        specialist: location.state?.specialist,
       })
     );
   }, []);
@@ -27,8 +33,8 @@ const Doctor = () => {
     navigate("/booking/datetime", {
       state: {
         doctor: doctor,
-        specialist: location.state.specialist,
-        facility: location.state.facility,
+        specialist: location.state?.specialist,
+        facility: location.state?.facility,
       },
     });
   };
@@ -51,14 +57,14 @@ const Doctor = () => {
           <div className="booking-info-row">
             <div className="booking-info-icon"><i className="fa-solid fa-building"></i></div>
             <span className="booking-info-content">
-              Cơ sở: {location.state.facility.name}
+              Cơ sở: {location.state?.facility.name}
             </span>
           </div>
 
           <div className="booking-info-row">
             <div className="booking-info-icon"><i className="fa-solid fa-briefcase-medical"></i></div>
             <span className="booking-info-content">
-              Chuyên khoa: {location.state.specialist}
+              Chuyên khoa: {location.state?.specialist}
             </span>
           </div>
         </Card>

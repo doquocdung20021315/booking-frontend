@@ -11,13 +11,21 @@ import {
   setListAppointment,
 } from "../../reducers/appointmentSlice";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 const ManageAppointmentPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const account = useSelector((state) => state.account);
   const listAppointment = useSelector((state) => state.appointment);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const roleId = localStorage.getItem("roleId");
+    if (!token || roleId !== "2") {
+      navigate("/");
+    }
+
     dispatch(
       getAllAppointmentFacility({
         facilityID: account.facilityID,
@@ -47,7 +55,7 @@ const ManageAppointmentPage = () => {
       key: "2",
       render: (date) => (
         <span>{dayjs(date, "YYYY-MM-DD").format("DD-MM-YYYY")}</span>
-      )
+      ),
     },
     {
       title: "Giờ hẹn",
@@ -237,21 +245,33 @@ const ManageAppointmentPage = () => {
         title="Thông tin lịch hẹn"
         open={infoModalOpen}
         onCancel={handleCancelInfoModal}
-        footer={[
-          <Button key="back" onClick={handleCancelInfoModal}>
-            Đóng
-          </Button>,
-          <Button className="check-button-come" key="came" onClick={handleCame}>
-            Đã đến
-          </Button>,
-          <Button
-            className="check-button-not-come"
-            key="notCome"
-            onClick={handleNotCome}
-          >
-            Không đến
-          </Button>,
-        ]}
+        footer={
+          appointmentSelect?.status === "1"
+            ? [
+                <Button key="back" onClick={handleCancelInfoModal}>
+                  Đóng
+                </Button>,
+                <Button
+                  className="check-button-come"
+                  key="came"
+                  onClick={handleCame}
+                >
+                  Đã đến
+                </Button>,
+                <Button
+                  className="check-button-not-come"
+                  key="notCome"
+                  onClick={handleNotCome}
+                >
+                  Không đến
+                </Button>,
+              ]
+            : [
+                <Button key="back" onClick={handleCancelInfoModal}>
+                  Đóng
+                </Button>,
+              ]
+        }
       >
         <div className="appointment-title">Thông tin cá nhân</div>
         <div>
@@ -374,7 +394,10 @@ const ManageAppointmentPage = () => {
           <div>
             <div className="success-datetime-title">Thời gian</div>
             <div>
-              {appointmentSelect?.time} ngày {dayjs(appointmentSelect?.date, "YYYY-MM-DD").format("DD-MM-YYYY")}
+              {appointmentSelect?.time} ngày{" "}
+              {dayjs(appointmentSelect?.date, "YYYY-MM-DD").format(
+                "DD-MM-YYYY"
+              )}
             </div>
           </div>
         </div>

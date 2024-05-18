@@ -22,6 +22,11 @@ const Facility = () => {
   );
 
   useEffect(() => {
+    const roleId = localStorage.getItem("roleId");
+    if (roleId === "2" || roleId === "3" || roleId === "4") {
+      navigate("/");
+    }
+
     dispatch(getAllFacility());
   }, []);
 

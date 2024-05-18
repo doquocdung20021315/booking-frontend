@@ -1,7 +1,7 @@
 import { Button, Calendar, Card } from "antd";
 import "./Datetime.scss";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import moment from "moment";
 import dayjs from "dayjs";
 import { RollbackOutlined } from "@ant-design/icons";
@@ -13,6 +13,14 @@ const Datetime = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const account = useSelector((state) => state.account);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const roleId = localStorage.getItem("roleId");
+    if (!token || roleId !== "1" || !location.state) {
+      navigate("/");
+    }
+  }, []);
 
   const [showTime, setshowTime] = useState(false);
   const [show7Time, setshow7Time] = useState(false);
@@ -36,12 +44,12 @@ const Datetime = () => {
 
   const onSelectDate = async (date) => {
     setSelectDate(date.format("YYYY-MM-DD"));
-    if (location.state.facility.service === "Y tế") {
+    if (location.state?.facility.service === "Y tế") {
       const list7 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "07:00 - 08:00",
         })
@@ -49,9 +57,9 @@ const Datetime = () => {
       const list7acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "07:00 - 08:00",
         })
@@ -64,9 +72,9 @@ const Datetime = () => {
 
       const list8 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "08:00 - 09:00",
         })
@@ -74,9 +82,9 @@ const Datetime = () => {
       const list8acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "08:00 - 09:00",
         })
@@ -89,9 +97,9 @@ const Datetime = () => {
 
       const list9 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "09:00 - 10:00",
         })
@@ -99,9 +107,9 @@ const Datetime = () => {
       const list9acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "09:00 - 10:00",
         })
@@ -114,9 +122,9 @@ const Datetime = () => {
 
       const list10 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "10:00 - 11:00",
         })
@@ -124,9 +132,9 @@ const Datetime = () => {
       const list10acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "10:00 - 11:00",
         })
@@ -139,9 +147,9 @@ const Datetime = () => {
 
       const list11 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "11:00 - 12:00",
         })
@@ -149,9 +157,9 @@ const Datetime = () => {
       const list11acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "11:00 - 12:00",
         })
@@ -164,9 +172,9 @@ const Datetime = () => {
 
       const list13 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "13:00 - 14:00",
         })
@@ -174,9 +182,9 @@ const Datetime = () => {
       const list13acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "13:00 - 14:00",
         })
@@ -189,9 +197,9 @@ const Datetime = () => {
 
       const list14 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "14:00 - 15:00",
         })
@@ -199,9 +207,9 @@ const Datetime = () => {
       const list14acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "14:00 - 15:00",
         })
@@ -214,9 +222,9 @@ const Datetime = () => {
 
       const list15 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "15:00 - 16:00",
         })
@@ -224,9 +232,9 @@ const Datetime = () => {
       const list15acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "15:00 - 16:00",
         })
@@ -239,9 +247,9 @@ const Datetime = () => {
 
       const list16 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "16:00 - 17:00",
         })
@@ -249,9 +257,9 @@ const Datetime = () => {
       const list16acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
           date: date.format("YYYY-MM-DD"),
           time: "16:00 - 17:00",
         })
@@ -261,11 +269,11 @@ const Datetime = () => {
       } else {
         setshow16Time(false);
       }
-    } else if (location.state.facility.service === "Hành chính") {
+    } else if (location.state?.facility.service === "Hành chính") {
       const list7 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "07:00 - 08:00",
@@ -274,8 +282,8 @@ const Datetime = () => {
       const list7acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "07:00 - 08:00",
@@ -289,8 +297,8 @@ const Datetime = () => {
 
       const list8 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "08:00 - 09:00",
@@ -299,8 +307,8 @@ const Datetime = () => {
       const list8acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "08:00 - 09:00",
@@ -314,8 +322,8 @@ const Datetime = () => {
 
       const list9 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "09:00 - 10:00",
@@ -324,8 +332,8 @@ const Datetime = () => {
       const list9acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "09:00 - 10:00",
@@ -339,8 +347,8 @@ const Datetime = () => {
 
       const list10 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "10:00 - 11:00",
@@ -349,8 +357,8 @@ const Datetime = () => {
       const list10acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "10:00 - 11:00",
@@ -364,8 +372,8 @@ const Datetime = () => {
 
       const list11 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "11:00 - 12:00",
@@ -374,8 +382,8 @@ const Datetime = () => {
       const list11acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "11:00 - 12:00",
@@ -389,8 +397,8 @@ const Datetime = () => {
 
       const list13 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "13:00 - 14:00",
@@ -399,8 +407,8 @@ const Datetime = () => {
       const list13acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "13:00 - 14:00",
@@ -414,8 +422,8 @@ const Datetime = () => {
 
       const list14 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "14:00 - 15:00",
@@ -424,8 +432,8 @@ const Datetime = () => {
       const list14acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "14:00 - 15:00",
@@ -439,8 +447,8 @@ const Datetime = () => {
 
       const list15 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "15:00 - 16:00",
@@ -449,8 +457,8 @@ const Datetime = () => {
       const list15acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "15:00 - 16:00",
@@ -464,8 +472,8 @@ const Datetime = () => {
 
       const list16 = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "16:00 - 17:00",
@@ -474,8 +482,8 @@ const Datetime = () => {
       const list16acc = await dispatch(
         searchAppointment({
           accountId: account._id,
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
           date: date.format("YYYY-MM-DD"),
           time: "16:00 - 17:00",
@@ -492,23 +500,23 @@ const Datetime = () => {
 
   const handleClickTime = (value) => {
     if (location.state?.isModify) {
-      if (location.state.facility.service === "Y tế") {
+      if (location.state?.facility.service === "Y tế") {
         navigate("/booking/confirm", {
           state: {
-            doctor: location.state.doctor,
-            specialist: location.state.specialist,
-            facility: location.state.facility,
+            doctor: location.state?.doctor,
+            specialist: location.state?.specialist,
+            facility: location.state?.facility,
             date: selectDate,
             time: value,
             isModify: true,
             modifyAppointmentId: location.state?.modifyAppointmentId,
           },
         });
-      } else if (location.state.facility.service === "Hành chính") {
+      } else if (location.state?.facility.service === "Hành chính") {
         navigate("/booking/confirm", {
           state: {
-            specialist: location.state.specialist,
-            facility: location.state.facility,
+            specialist: location.state?.specialist,
+            facility: location.state?.facility,
             date: selectDate,
             time: value,
             isModify: true,
@@ -517,21 +525,21 @@ const Datetime = () => {
         });
       }
     } else {
-      if (location.state.facility.service === "Y tế") {
+      if (location.state?.facility.service === "Y tế") {
         navigate("/booking/confirm", {
           state: {
-            doctor: location.state.doctor,
-            specialist: location.state.specialist,
-            facility: location.state.facility,
+            doctor: location.state?.doctor,
+            specialist: location.state?.specialist,
+            facility: location.state?.facility,
             date: selectDate,
             time: value,
           },
         });
-      } else if (location.state.facility.service === "Hành chính") {
+      } else if (location.state?.facility.service === "Hành chính") {
         navigate("/booking/confirm", {
           state: {
-            specialist: location.state.specialist,
-            facility: location.state.facility,
+            specialist: location.state?.specialist,
+            facility: location.state?.facility,
             date: selectDate,
             time: value,
           },
@@ -553,24 +561,24 @@ const Datetime = () => {
             textAlign: "center",
             fontSize: "1.2rem",
           }}
-          style={{ marginTop: "10rem", width: "18rem" }}
+          style={{ marginTop: "5rem", width: "18rem" }}
         >
           <div className="booking-info-row">
             <div className="booking-info-icon">
               <i className="fa-solid fa-building"></i>
             </div>
             <span className="booking-info-content">
-              Cơ sở: {location.state.facility.name}
+              Cơ sở: {location.state?.facility.name}
             </span>
           </div>
 
-          {location.state.facility.service === "Y tế" ? (
+          {location.state?.facility.service === "Y tế" ? (
             <div className="booking-info-row">
               <div className="booking-info-icon">
                 <i className="fa-solid fa-briefcase-medical"></i>
               </div>
               <span className="booking-info-content">
-                Chuyên khoa: {location.state.doctor.specialist}
+                Chuyên khoa: {location.state?.doctor.specialist}
               </span>
             </div>
           ) : (
@@ -579,21 +587,21 @@ const Datetime = () => {
                 <i className="fa-solid fa-ticket"></i>
               </div>
               <span className="booking-info-content">
-                Lĩnh vực: {location.state.specialist}
+                Lĩnh vực: {location.state?.specialist}
               </span>
             </div>
           )}
 
-          {location.state.facility.service === "Y tế" ? (
+          {location.state?.facility.service === "Y tế" ? (
             <div className="booking-info-row">
               <div className="booking-info-icon">
                 <i className="fa-solid fa-stethoscope"></i>
               </div>
               <span className="booking-info-content">
                 Bác sĩ:{" "}
-                {location.state.doctor.degree +
+                {location.state?.doctor.degree +
                   " " +
-                  location.state.doctor.name}
+                  location.state?.doctor.name}
               </span>
             </div>
           ) : (

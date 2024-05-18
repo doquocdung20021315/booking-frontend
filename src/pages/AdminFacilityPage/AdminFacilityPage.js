@@ -11,15 +11,23 @@ import {
   searchFacility,
 } from "../../reducers/listFacilitySlice";
 import { allProvinces } from "../../utils";
+import { useNavigate } from "react-router-dom";
 
 const AdminFacilityPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const listFacility = useSelector((state) => state.listFacility);
   const criteriaSearchFacility = useSelector(
     (state) => state.criteriaSearchFacility
   );
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const roleId = localStorage.getItem("roleId");
+    if (!token || roleId !== "3") {
+      navigate("/");
+    }
+
     dispatch(getAllFacility());
   }, []);
 

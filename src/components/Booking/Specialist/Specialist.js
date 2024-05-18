@@ -13,9 +13,15 @@ const Specialist = () => {
   const listSpecialist = useSelector((state) => state.listSpecialist);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const roleId = localStorage.getItem("roleId");
+    if (!token || roleId !== "1" || !location.state) {
+      navigate("/");
+    }
+
     dispatch(
       getListSpecialist({
-        facilityID: location.state.facility.facilityID,
+        facilityID: location.state?.facility.facilityID,
       })
     );
   }, []);
@@ -23,17 +29,17 @@ const Specialist = () => {
   // console.log(listSpecialist)
 
   const handleClickSpecialist = (specialist) => {
-    if (location.state.facility.service === "Y tế") {
+    if (location.state?.facility.service === "Y tế") {
       navigate("/booking/doctor", {
         state: {
-          facility: location.state.facility,
+          facility: location.state?.facility,
           specialist: specialist,
         },
       });
-    } else if (location.state.facility.service === "Hành chính") {
+    } else if (location.state?.facility.service === "Hành chính") {
       navigate("/booking/datetime", {
         state: {
-          facility: location.state.facility,
+          facility: location.state?.facility,
           specialist: specialist,
         },
       });
@@ -60,7 +66,7 @@ const Specialist = () => {
               <i className="fa-solid fa-building"></i>
             </div>
             <span className="booking-info-content">
-              Cơ sở: {location.state.facility.name}
+              Cơ sở: {location.state?.facility.name}
             </span>
           </div>
         </Card>
@@ -69,7 +75,7 @@ const Specialist = () => {
       <div className="specialist-main">
         <Card
           title={
-            location.state.facility.service === "Y tế"
+            location.state?.facility.service === "Y tế"
               ? "Vui lòng chọn chuyên khoa"
               : "Vui lòng chọn lĩnh vực"
           }

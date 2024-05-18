@@ -4,39 +4,55 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getInfoAccount, login } from "../../reducers/accountSlice";
 import "../../components/LoginPage/LoginPage.scss";
+import { useEffect } from "react";
 
 const LoginPage = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
+    }
+  }, []);
 
   const onFinish = async (values) => {
-    const { payload } = await dispatch(login({
-      username: values.username,
-      password: values.password,
-    }))
+    const { payload } = await dispatch(
+      login({
+        username: values.username,
+        password: values.password,
+      })
+    );
     if (payload) {
-      localStorage.setItem("token", payload.token)
-      dispatch(getInfoAccount({
-        token: payload.token
-      }))
-      navigate("/")
+      localStorage.setItem("token", payload.token);
+      localStorage.setItem("roleId", payload.roleId);
+      if (payload.facilityID) {
+        localStorage.setItem("facilityID", payload.facilityID);
+      }
+      dispatch(
+        getInfoAccount({
+          token: payload.token,
+        })
+      );
+      navigate("/");
     } else {
-      const errorMessage = document.getElementById('error-message')
-      const eMessage = document.createElement('div')
-      eMessage.classList.add('error-message')
+      const errorMessage = document.getElementById("error-message");
+      const eMessage = document.createElement("div");
+      eMessage.classList.add("error-message");
       eMessage.innerHTML = `
       <div class='error-icon'>x</div>
       <div>Thông tin đăng nhập không chính xác</div>
-      `
-      errorMessage?.appendChild(eMessage)
+      `;
+      errorMessage?.appendChild(eMessage);
       setTimeout(() => {
-        errorMessage?.removeChild(eMessage)
-      }, 3000)
+        errorMessage?.removeChild(eMessage);
+      }, 3000);
     }
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Lỗi:', errorInfo);
+    console.log("Lỗi:", errorInfo);
   };
 
   return (
@@ -58,20 +74,33 @@ const LoginPage = () => {
         <Form.Item
           className="login-form-item"
           name="username"
-          rules={[{ required: true, message: 'Hãy nhập tên tài khoản của bạn!' }]}
+          rules={[
+            { required: true, message: "Hãy nhập tên tài khoản của bạn!" },
+          ]}
         >
-          <Input className="login-input" prefix={<MailFilled />} placeholder="Nhập tên tài khoản" />
+          <Input
+            className="login-input"
+            prefix={<MailFilled />}
+            placeholder="Nhập tên tài khoản"
+          />
         </Form.Item>
 
         <Form.Item
           className="login-form-item"
           name="password"
-          rules={[{ required: true, message: 'Hãy nhập mật khẩu của bạn!' }]}
+          rules={[{ required: true, message: "Hãy nhập mật khẩu của bạn!" }]}
         >
-          <Input.Password className="login-input" prefix={<LockFilled />} placeholder="Nhập mật khẩu" />
+          <Input.Password
+            className="login-input"
+            prefix={<LockFilled />}
+            placeholder="Nhập mật khẩu"
+          />
         </Form.Item>
 
-        <Form.Item className="login-form-item" wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item
+          className="login-form-item"
+          wrapperCol={{ offset: 8, span: 16 }}
+        >
           <Button className="login-button" type="primary" htmlType="submit">
             ĐĂNG NHẬP
           </Button>
@@ -79,7 +108,9 @@ const LoginPage = () => {
 
         <div className="register">
           <span className="register-text">Bạn chưa có tài khoản? </span>
-          <Link className="register-link" to="/register">Đăng ký ngay!</Link>
+          <Link className="register-link" to="/register">
+            Đăng ký ngay!
+          </Link>
         </div>
 
         <div className="login-contact">
@@ -91,7 +122,7 @@ const LoginPage = () => {
         </div>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

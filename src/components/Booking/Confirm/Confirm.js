@@ -8,7 +8,7 @@ import {
   searchAppointment,
 } from "../../../reducers/appointmentSlice";
 import "./Confirm.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 
 const Confirm = () => {
@@ -18,6 +18,14 @@ const Confirm = () => {
   const account = useSelector((state) => state.account);
 
   // console.log(location.state);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const roleId = localStorage.getItem("roleId");
+    if (!token || roleId !== "1" || !location.state) {
+      navigate("/");
+    }
+  }, []);
 
   const [open, setOpen] = useState(false);
   const [modifyTime, setModifyTime] = useState("");
@@ -39,22 +47,22 @@ const Confirm = () => {
       }
     }
 
-    if (location.state.facility.service === "Y tế") {
+    if (location.state?.facility.service === "Y tế") {
       navigate("/booking/success", {
         state: {
-          doctor: location.state.doctor,
-          specialist: location.state.specialist,
-          facility: location.state.facility,
-          date: location.state.date,
+          doctor: location.state?.doctor,
+          specialist: location.state?.specialist,
+          facility: location.state?.facility,
+          date: location.state?.date,
           time: modifyTime,
         },
       });
-    } else if (location.state.facility.service === "Hành chính") {
+    } else if (location.state?.facility.service === "Hành chính") {
       navigate("/booking/success", {
         state: {
-          specialist: location.state.specialist,
-          facility: location.state.facility,
-          date: location.state.date,
+          specialist: location.state?.specialist,
+          facility: location.state?.facility,
+          date: location.state?.date,
           time: modifyTime,
         },
       });
@@ -64,12 +72,12 @@ const Confirm = () => {
     const list = await dispatch(
       searchAppointment({
         accountId: account._id,
-        facilityID: location.state.facility.facilityID,
-        specialist: location.state.specialist,
+        facilityID: location.state?.facility.facilityID,
+        specialist: location.state?.specialist,
         doctorID: location.state?.doctor?.doctorID
           ? location.state?.doctor?.doctorID
           : "",
-        date: location.state.date,
+        date: location.state?.date,
         time: modifyTime,
       })
     );
@@ -88,33 +96,33 @@ const Confirm = () => {
   };
 
   const handleClickBook = async () => {
-    if (location.state.facility.service === "Y tế") {
+    if (location.state?.facility.service === "Y tế") {
       const list = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
-          doctorID: location.state.doctor.doctorID,
-          date: location.state.date,
-          time: location.state.time,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
+          doctorID: location.state?.doctor.doctorID,
+          date: location.state?.date,
+          time: location.state?.time,
         })
       );
       if (list?.payload.length < 5) {
         dispatch(
           book({
             accountId: account._id,
-            facilityID: location.state.facility.facilityID,
-            facilityName: location.state.facility.name,
-            location: location.state.facility.location,
-            locationID: location.state.facility.locationID,
-            service: location.state.facility.service,
-            specialist: location.state.specialist,
-            doctorID: location.state.doctor.doctorID,
-            doctorName: location.state.doctor.name,
-            doctorDegree: location.state.doctor.degree,
-            doctorGender: location.state.doctor.gender,
-            doctorPrice: location.state.doctor.price,
-            date: location.state.date,
-            time: location.state.time,
+            facilityID: location.state?.facility.facilityID,
+            facilityName: location.state?.facility.name,
+            location: location.state?.facility.location,
+            locationID: location.state?.facility.locationID,
+            service: location.state?.facility.service,
+            specialist: location.state?.specialist,
+            doctorID: location.state?.doctor.doctorID,
+            doctorName: location.state?.doctor.name,
+            doctorDegree: location.state?.doctor.degree,
+            doctorGender: location.state?.doctor.gender,
+            doctorPrice: location.state?.doctor.price,
+            date: location.state?.date,
+            time: location.state?.time,
           })
         );
 
@@ -132,299 +140,299 @@ const Confirm = () => {
 
         navigate("/booking/success", {
           state: {
-            doctor: location.state.doctor,
-            specialist: location.state.specialist,
-            facility: location.state.facility,
-            date: location.state.date,
-            time: location.state.time,
+            doctor: location.state?.doctor,
+            specialist: location.state?.specialist,
+            facility: location.state?.facility,
+            date: location.state?.date,
+            time: location.state?.time,
           },
         });
       } else {
         const list7 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
-            doctorID: location.state.doctor.doctorID,
-            date: location.state.date,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
+            doctorID: location.state?.doctor.doctorID,
+            date: location.state?.date,
             time: "07:00 - 08:00",
           })
         );
         const list8 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
-            doctorID: location.state.doctor.doctorID,
-            date: location.state.date,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
+            doctorID: location.state?.doctor.doctorID,
+            date: location.state?.date,
             time: "08:00 - 09:00",
           })
         );
         const list9 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
-            doctorID: location.state.doctor.doctorID,
-            date: location.state.date,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
+            doctorID: location.state?.doctor.doctorID,
+            date: location.state?.date,
             time: "09:00 - 10:00",
           })
         );
         const list10 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
-            doctorID: location.state.doctor.doctorID,
-            date: location.state.date,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
+            doctorID: location.state?.doctor.doctorID,
+            date: location.state?.date,
             time: "10:00 - 11:00",
           })
         );
         const list11 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
-            doctorID: location.state.doctor.doctorID,
-            date: location.state.date,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
+            doctorID: location.state?.doctor.doctorID,
+            date: location.state?.date,
             time: "11:00 - 12:00",
           })
         );
         const list13 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
-            doctorID: location.state.doctor.doctorID,
-            date: location.state.date,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
+            doctorID: location.state?.doctor.doctorID,
+            date: location.state?.date,
             time: "13:00 - 14:00",
           })
         );
         const list14 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
-            doctorID: location.state.doctor.doctorID,
-            date: location.state.date,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
+            doctorID: location.state?.doctor.doctorID,
+            date: location.state?.date,
             time: "14:00 - 15:00",
           })
         );
         const list15 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
-            doctorID: location.state.doctor.doctorID,
-            date: location.state.date,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
+            doctorID: location.state?.doctor.doctorID,
+            date: location.state?.date,
             time: "15:00 - 16:00",
           })
         );
         const list16 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
-            doctorID: location.state.doctor.doctorID,
-            date: location.state.date,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
+            doctorID: location.state?.doctor.doctorID,
+            date: location.state?.date,
             time: "16:00 - 17:00",
           })
         );
 
         if (
-          location.state.time !== "07:00 - 08:00" &&
+          location.state?.time !== "07:00 - 08:00" &&
           list7?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
-              doctorID: location.state.doctor.doctorID,
-              doctorName: location.state.doctor.name,
-              doctorDegree: location.state.doctor.degree,
-              doctorGender: location.state.doctor.gender,
-              doctorPrice: location.state.doctor.price,
-              date: location.state.date,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
+              doctorID: location.state?.doctor.doctorID,
+              doctorName: location.state?.doctor.name,
+              doctorDegree: location.state?.doctor.degree,
+              doctorGender: location.state?.doctor.gender,
+              doctorPrice: location.state?.doctor.price,
+              date: location.state?.date,
               time: "07:00 - 08:00",
             })
           );
           setModifyTime("07:00 - 08:00");
         } else if (
-          location.state.time !== "08:00 - 09:00" &&
+          location.state?.time !== "08:00 - 09:00" &&
           list8?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
-              doctorID: location.state.doctor.doctorID,
-              doctorName: location.state.doctor.name,
-              doctorDegree: location.state.doctor.degree,
-              doctorGender: location.state.doctor.gender,
-              doctorPrice: location.state.doctor.price,
-              date: location.state.date,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
+              doctorID: location.state?.doctor.doctorID,
+              doctorName: location.state?.doctor.name,
+              doctorDegree: location.state?.doctor.degree,
+              doctorGender: location.state?.doctor.gender,
+              doctorPrice: location.state?.doctor.price,
+              date: location.state?.date,
               time: "08:00 - 09:00",
             })
           );
           setModifyTime("08:00 - 09:00");
         } else if (
-          location.state.time !== "09:00 - 10:00" &&
+          location.state?.time !== "09:00 - 10:00" &&
           list9?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
-              doctorID: location.state.doctor.doctorID,
-              doctorName: location.state.doctor.name,
-              doctorDegree: location.state.doctor.degree,
-              doctorGender: location.state.doctor.gender,
-              doctorPrice: location.state.doctor.price,
-              date: location.state.date,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
+              doctorID: location.state?.doctor.doctorID,
+              doctorName: location.state?.doctor.name,
+              doctorDegree: location.state?.doctor.degree,
+              doctorGender: location.state?.doctor.gender,
+              doctorPrice: location.state?.doctor.price,
+              date: location.state?.date,
               time: "09:00 - 10:00",
             })
           );
           setModifyTime("09:00 - 10:00");
         } else if (
-          location.state.time !== "10:00 - 11:00" &&
+          location.state?.time !== "10:00 - 11:00" &&
           list10?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
-              doctorID: location.state.doctor.doctorID,
-              doctorName: location.state.doctor.name,
-              doctorDegree: location.state.doctor.degree,
-              doctorGender: location.state.doctor.gender,
-              doctorPrice: location.state.doctor.price,
-              date: location.state.date,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
+              doctorID: location.state?.doctor.doctorID,
+              doctorName: location.state?.doctor.name,
+              doctorDegree: location.state?.doctor.degree,
+              doctorGender: location.state?.doctor.gender,
+              doctorPrice: location.state?.doctor.price,
+              date: location.state?.date,
               time: "10:00 - 11:00",
             })
           );
           setModifyTime("10:00 - 11:00");
         } else if (
-          location.state.time !== "11:00 - 12:00" &&
+          location.state?.time !== "11:00 - 12:00" &&
           list11?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
-              doctorID: location.state.doctor.doctorID,
-              doctorName: location.state.doctor.name,
-              doctorDegree: location.state.doctor.degree,
-              doctorGender: location.state.doctor.gender,
-              doctorPrice: location.state.doctor.price,
-              date: location.state.date,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
+              doctorID: location.state?.doctor.doctorID,
+              doctorName: location.state?.doctor.name,
+              doctorDegree: location.state?.doctor.degree,
+              doctorGender: location.state?.doctor.gender,
+              doctorPrice: location.state?.doctor.price,
+              date: location.state?.date,
               time: "11:00 - 12:00",
             })
           );
           setModifyTime("11:00 - 12:00");
         } else if (
-          location.state.time !== "13:00 - 14:00" &&
+          location.state?.time !== "13:00 - 14:00" &&
           list13?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
-              doctorID: location.state.doctor.doctorID,
-              doctorName: location.state.doctor.name,
-              doctorDegree: location.state.doctor.degree,
-              doctorGender: location.state.doctor.gender,
-              doctorPrice: location.state.doctor.price,
-              date: location.state.date,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
+              doctorID: location.state?.doctor.doctorID,
+              doctorName: location.state?.doctor.name,
+              doctorDegree: location.state?.doctor.degree,
+              doctorGender: location.state?.doctor.gender,
+              doctorPrice: location.state?.doctor.price,
+              date: location.state?.date,
               time: "13:00 - 14:00",
             })
           );
           setModifyTime("13:00 - 14:00");
         } else if (
-          location.state.time !== "14:00 - 15:00" &&
+          location.state?.time !== "14:00 - 15:00" &&
           list14?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
-              doctorID: location.state.doctor.doctorID,
-              doctorName: location.state.doctor.name,
-              doctorDegree: location.state.doctor.degree,
-              doctorGender: location.state.doctor.gender,
-              doctorPrice: location.state.doctor.price,
-              date: location.state.date,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
+              doctorID: location.state?.doctor.doctorID,
+              doctorName: location.state?.doctor.name,
+              doctorDegree: location.state?.doctor.degree,
+              doctorGender: location.state?.doctor.gender,
+              doctorPrice: location.state?.doctor.price,
+              date: location.state?.date,
               time: "14:00 - 15:00",
             })
           );
           setModifyTime("14:00 - 15:00");
         } else if (
-          location.state.time !== "15:00 - 16:00" &&
+          location.state?.time !== "15:00 - 16:00" &&
           list15?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
-              doctorID: location.state.doctor.doctorID,
-              doctorName: location.state.doctor.name,
-              doctorDegree: location.state.doctor.degree,
-              doctorGender: location.state.doctor.gender,
-              doctorPrice: location.state.doctor.price,
-              date: location.state.date,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
+              doctorID: location.state?.doctor.doctorID,
+              doctorName: location.state?.doctor.name,
+              doctorDegree: location.state?.doctor.degree,
+              doctorGender: location.state?.doctor.gender,
+              doctorPrice: location.state?.doctor.price,
+              date: location.state?.date,
               time: "15:00 - 16:00",
             })
           );
           setModifyTime("15:00 - 16:00");
         } else if (
-          location.state.time !== "16:00 - 17:00" &&
+          location.state?.time !== "16:00 - 17:00" &&
           list16?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
-              doctorID: location.state.doctor.doctorID,
-              doctorName: location.state.doctor.name,
-              doctorDegree: location.state.doctor.degree,
-              doctorGender: location.state.doctor.gender,
-              doctorPrice: location.state.doctor.price,
-              date: location.state.date,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
+              doctorID: location.state?.doctor.doctorID,
+              doctorName: location.state?.doctor.name,
+              doctorDegree: location.state?.doctor.degree,
+              doctorGender: location.state?.doctor.gender,
+              doctorPrice: location.state?.doctor.price,
+              date: location.state?.date,
               time: "16:00 - 17:00",
             })
           );
@@ -432,33 +440,33 @@ const Confirm = () => {
         }
         setOpen(true);
       }
-    } else if (location.state.facility.service === "Hành chính") {
+    } else if (location.state?.facility.service === "Hành chính") {
       const list = await dispatch(
         searchAppointment({
-          facilityID: location.state.facility.facilityID,
-          specialist: location.state.specialist,
+          facilityID: location.state?.facility.facilityID,
+          specialist: location.state?.specialist,
           doctorID: "",
-          date: location.state.date,
-          time: location.state.time,
+          date: location.state?.date,
+          time: location.state?.time,
         })
       );
       if (list?.payload.length < 5) {
         dispatch(
           book({
             accountId: account._id,
-            facilityID: location.state.facility.facilityID,
-            facilityName: location.state.facility.name,
-            location: location.state.facility.location,
-            locationID: location.state.facility.locationID,
-            service: location.state.facility.service,
-            specialist: location.state.specialist,
+            facilityID: location.state?.facility.facilityID,
+            facilityName: location.state?.facility.name,
+            location: location.state?.facility.location,
+            locationID: location.state?.facility.locationID,
+            service: location.state?.facility.service,
+            specialist: location.state?.specialist,
             doctorID: "",
             doctorName: "",
             doctorDegree: "",
             doctorGender: "",
             doctorPrice: "",
-            date: location.state.date,
-            time: location.state.time,
+            date: location.state?.date,
+            time: location.state?.time,
           })
         );
 
@@ -476,298 +484,298 @@ const Confirm = () => {
 
         navigate("/booking/success", {
           state: {
-            specialist: location.state.specialist,
-            facility: location.state.facility,
-            date: location.state.date,
-            time: location.state.time,
+            specialist: location.state?.specialist,
+            facility: location.state?.facility,
+            date: location.state?.date,
+            time: location.state?.time,
           },
         });
       } else {
         const list7 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
             doctorID: "",
-            date: location.state.date,
+            date: location.state?.date,
             time: "07:00 - 08:00",
           })
         );
         const list8 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
             doctorID: "",
-            date: location.state.date,
+            date: location.state?.date,
             time: "08:00 - 09:00",
           })
         );
         const list9 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
             doctorID: "",
-            date: location.state.date,
+            date: location.state?.date,
             time: "09:00 - 10:00",
           })
         );
         const list10 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
             doctorID: "",
-            date: location.state.date,
+            date: location.state?.date,
             time: "10:00 - 11:00",
           })
         );
         const list11 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
             doctorID: "",
-            date: location.state.date,
+            date: location.state?.date,
             time: "11:00 - 12:00",
           })
         );
         const list13 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
             doctorID: "",
-            date: location.state.date,
+            date: location.state?.date,
             time: "13:00 - 14:00",
           })
         );
         const list14 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
             doctorID: "",
-            date: location.state.date,
+            date: location.state?.date,
             time: "14:00 - 15:00",
           })
         );
         const list15 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
             doctorID: "",
-            date: location.state.date,
+            date: location.state?.date,
             time: "15:00 - 16:00",
           })
         );
         const list16 = await dispatch(
           searchAppointment({
-            facilityID: location.state.facility.facilityID,
-            specialist: location.state.specialist,
+            facilityID: location.state?.facility.facilityID,
+            specialist: location.state?.specialist,
             doctorID: "",
-            date: location.state.date,
+            date: location.state?.date,
             time: "16:00 - 17:00",
           })
         );
 
         if (
-          location.state.time !== "07:00 - 08:00" &&
+          location.state?.time !== "07:00 - 08:00" &&
           list7?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
               doctorID: "",
               doctorName: "",
               doctorDegree: "",
               doctorGender: "",
               doctorPrice: "",
-              date: location.state.date,
+              date: location.state?.date,
               time: "07:00 - 08:00",
             })
           );
           setModifyTime("07:00 - 08:00");
         } else if (
-          location.state.time !== "08:00 - 09:00" &&
+          location.state?.time !== "08:00 - 09:00" &&
           list8?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
               doctorID: "",
               doctorName: "",
               doctorDegree: "",
               doctorGender: "",
               doctorPrice: "",
-              date: location.state.date,
+              date: location.state?.date,
               time: "08:00 - 09:00",
             })
           );
           setModifyTime("08:00 - 09:00");
         } else if (
-          location.state.time !== "09:00 - 10:00" &&
+          location.state?.time !== "09:00 - 10:00" &&
           list9?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
               doctorID: "",
               doctorName: "",
               doctorDegree: "",
               doctorGender: "",
               doctorPrice: "",
-              date: location.state.date,
+              date: location.state?.date,
               time: "09:00 - 10:00",
             })
           );
           setModifyTime("09:00 - 10:00");
         } else if (
-          location.state.time !== "10:00 - 11:00" &&
+          location.state?.time !== "10:00 - 11:00" &&
           list10?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
               doctorID: "",
               doctorName: "",
               doctorDegree: "",
               doctorGender: "",
               doctorPrice: "",
-              date: location.state.date,
+              date: location.state?.date,
               time: "10:00 - 11:00",
             })
           );
           setModifyTime("10:00 - 11:00");
         } else if (
-          location.state.time !== "11:00 - 12:00" &&
+          location.state?.time !== "11:00 - 12:00" &&
           list11?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
               doctorID: "",
               doctorName: "",
               doctorDegree: "",
               doctorGender: "",
               doctorPrice: "",
-              date: location.state.date,
+              date: location.state?.date,
               time: "11:00 - 12:00",
             })
           );
           setModifyTime("11:00 - 12:00");
         } else if (
-          location.state.time !== "13:00 - 14:00" &&
+          location.state?.time !== "13:00 - 14:00" &&
           list13?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
               doctorID: "",
               doctorName: "",
               doctorDegree: "",
               doctorGender: "",
               doctorPrice: "",
-              date: location.state.date,
+              date: location.state?.date,
               time: "13:00 - 14:00",
             })
           );
           setModifyTime("13:00 - 14:00");
         } else if (
-          location.state.time !== "14:00 - 15:00" &&
+          location.state?.time !== "14:00 - 15:00" &&
           list14?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
               doctorID: "",
               doctorName: "",
               doctorDegree: "",
               doctorGender: "",
               doctorPrice: "",
-              date: location.state.date,
+              date: location.state?.date,
               time: "14:00 - 15:00",
             })
           );
           setModifyTime("14:00 - 15:00");
         } else if (
-          location.state.time !== "15:00 - 16:00" &&
+          location.state?.time !== "15:00 - 16:00" &&
           list15?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
               doctorID: "",
               doctorName: "",
               doctorDegree: "",
               doctorGender: "",
               doctorPrice: "",
-              date: location.state.date,
+              date: location.state?.date,
               time: "15:00 - 16:00",
             })
           );
           setModifyTime("15:00 - 16:00");
         } else if (
-          location.state.time !== "16:00 - 17:00" &&
+          location.state?.time !== "16:00 - 17:00" &&
           list16?.payload.length < 5
         ) {
           dispatch(
             book({
               accountId: account._id,
-              facilityID: location.state.facility.facilityID,
-              facilityName: location.state.facility.name,
-              location: location.state.facility.location,
-              locationID: location.state.facility.locationID,
-              service: location.state.facility.service,
-              specialist: location.state.specialist,
+              facilityID: location.state?.facility.facilityID,
+              facilityName: location.state?.facility.name,
+              location: location.state?.facility.location,
+              locationID: location.state?.facility.locationID,
+              service: location.state?.facility.service,
+              specialist: location.state?.specialist,
               doctorID: "",
               doctorName: "",
               doctorDegree: "",
               doctorGender: "",
               doctorPrice: "",
-              date: location.state.date,
+              date: location.state?.date,
               time: "16:00 - 17:00",
             })
           );
@@ -841,7 +849,7 @@ const Confirm = () => {
           </div>
         </Card>
 
-        {location.state.facility.service === "Y tế" ? (
+        {location.state?.facility.service === "Y tế" ? (
           <Card
             className="confirm-doctor"
             title="Thông tin bác sĩ"
@@ -856,9 +864,9 @@ const Confirm = () => {
                   <i className="fa-solid fa-user-doctor"></i>
                 </div>
                 <span className="confirm-doctor-info">
-                  {location.state.doctor.degree +
+                  {location.state?.doctor.degree +
                     " " +
-                    location.state.doctor.name}
+                    location.state?.doctor.name}
                 </span>
               </div>
 
@@ -867,7 +875,7 @@ const Confirm = () => {
                   <i className="fa-solid fa-mars-and-venus"></i>
                 </div>
                 <span className="confirm-doctor-info">
-                  Giới tính: {location.state.doctor.gender}
+                  Giới tính: {location.state?.doctor.gender}
                 </span>
               </div>
             </div>
@@ -878,7 +886,7 @@ const Confirm = () => {
                   <i className="fa-solid fa-briefcase-medical"></i>
                 </div>
                 <span className="confirm-doctor-info">
-                  Chuyên khoa: {location.state.doctor.specialist}
+                  Chuyên khoa: {location.state?.doctor.specialist}
                 </span>
               </div>
 
@@ -887,7 +895,7 @@ const Confirm = () => {
                   <i className="fa-solid fa-dollar-sign"></i>
                 </div>
                 <span className="confirm-doctor-info">
-                  Giá khám: {location.state.doctor.price}đ
+                  Giá khám: {location.state?.doctor.price}đ
                 </span>
               </div>
             </div>
@@ -904,10 +912,10 @@ const Confirm = () => {
               </div>
               <div>
                 <div className="confirm-facility-name">
-                  {location.state.facility.name}
+                  {location.state?.facility.name}
                 </div>
                 <div className="confirm-facility-location">
-                  {location.state.facility.location}
+                  {location.state?.facility.location}
                 </div>
               </div>
             </div>
@@ -915,7 +923,7 @@ const Confirm = () => {
         )}
 
         <div className="confirm-row">
-          {location.state.facility.service === "Y tế" ? (
+          {location.state?.facility.service === "Y tế" ? (
             <Card>
               <div className="confirm-facility">
                 <div className="confirm-facility-img">
@@ -927,10 +935,10 @@ const Confirm = () => {
                 </div>
                 <div>
                   <div className="confirm-facility-name">
-                    {location.state.facility.name}
+                    {location.state?.facility.name}
                   </div>
                   <div className="confirm-facility-location">
-                    {location.state.facility.location}
+                    {location.state?.facility.location}
                   </div>
                 </div>
               </div>
@@ -944,7 +952,7 @@ const Confirm = () => {
                 <div>
                   <div className="confirm-specialist-title">Lĩnh vực</div>
                   <div className="confirm-specialist-content">
-                    {location.state.specialist}
+                    {location.state?.specialist}
                   </div>
                 </div>
               </div>
@@ -959,8 +967,8 @@ const Confirm = () => {
               <div>
                 <div className="confirm-datetime-title">Thời gian</div>
                 <div className="confirm-datetime-content">
-                  {location.state.time} ngày{" "}
-                  {dayjs(location.state.date, "YYYY-MM-DD").format(
+                  {location.state?.time} ngày{" "}
+                  {dayjs(location.state?.date, "YYYY-MM-DD").format(
                     "DD-MM-YYYY"
                   )}
                 </div>

@@ -2,55 +2,93 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Route, Routes } from "react-router-dom";
 import "./App.scss";
+import Confirm from "./components/Booking/Confirm/Confirm";
 import Datetime from "./components/Booking/Datetime/Datetime";
 import Doctor from "./components/Booking/Doctor/Doctor";
+import Facility from "./components/Booking/Facility/Facility";
 import Specialist from "./components/Booking/Specialist/Specialist";
-import logo from "./logo.svg";
+import Success from "./components/Booking/Success/Success";
+import AdminAccountPage from "./pages/AdminAccountPage/AdminAccountPage";
+import AdminFacilityPage from "./pages/AdminFacilityPage/AdminFacilityPage";
+import AppointmentPage from "./pages/AppointmentPage/AppointmentPage";
 import BookingPage from "./pages/BookingPage/BookingPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import ManageAccountPage from "./pages/ManageAccountPage/ManageAccountPage";
+import ManageAppointmentPage from "./pages/ManageAppointmentPage/ManageAppointmentPage";
+import ManageFacilityPage from "./pages/ManageFacilityPage/ManageFacilityPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import { getInfoAccount } from "./reducers/accountSlice";
-import { serviceConfig } from "./services/serviceManager";
-import AppointmentPage from "./pages/AppointmentPage/AppointmentPage";
-import Facility from "./components/Booking/Facility/Facility";
+import {
+  getAllAppointmentAccount,
+  getAllAppointmentFacility,
+} from "./reducers/appointmentSlice";
+import {
+  getAllAccountByFacilityAndRole,
+  getAllAccountByNotRole,
+} from "./reducers/listAccountSlice";
 import { getAllFacility } from "./reducers/listFacilitySlice";
-import Confirm from "./components/Booking/Confirm/Confirm";
-import Success from "./components/Booking/Success/Success";
-import { getAllAppointmentAccount } from "./reducers/appointmentSlice";
-import ManageAppointmentPage from "./pages/ManageAppointmentPage/ManageAppointmentPage";
-import AdminFacilityPage from "./pages/AdminFacilityPage/AdminFacilityPage";
-import AdminAccountPage from "./pages/AdminAccountPage/AdminAccountPage";
-import { getAllAccountByNotRole } from "./reducers/listAccountSlice";
-import ManageFacilityPage from "./pages/ManageFacilityPage/ManageFacilityPage";
+import { serviceConfig } from "./services/serviceManager";
+import { setCriteriaSearchAccount } from "./reducers/criteriaSearchAccountSlice";
+import { getInfoFac } from "./reducers/facilitySlice";
+import { getListSpecialist } from "./reducers/listSpecialistSlice";
+import { getListDoctor } from "./reducers/listDoctorSlice";
 
 function App() {
   const dispatch = useDispatch();
   const account = useSelector((state) => state.account);
+  const criteriaSearchAccount = useSelector(
+    (state) => state.criteriaSearchAccount
+  );
 
   // console.log(account);
 
   useEffect(() => {
     serviceConfig();
     const token = localStorage.getItem("token");
+    const roleId = localStorage.getItem("roleId");
+    const facilityID = localStorage.getItem("facilityID");
     if (token) {
       dispatch(getInfoAccount({ token }));
       dispatch(getAllAppointmentAccount({ token }));
     }
-    dispatch(getAllFacility());
-    dispatch(
-      getAllAccountByNotRole({
-        roleId: "3",
-      })
-    );
+    if (roleId === "2" && facilityID) {
+      dispatch(getAllAppointmentFacility({ facilityID }));
+    }
+    if (roleId === "4" && facilityID) {
+      dispatch(
+        getAllAccountByFacilityAndRole({
+          facilityID,
+          roleId: "2",
+        })
+      );
+      dispatch(
+        setCriteriaSearchAccount({
+          ...criteriaSearchAccount,
+          facilityID,
+          roleId: "2",
+        })
+      );
+      dispatch(getInfoFac({ facilityID }));
+      dispatch(getListSpecialist({ facilityID }));
+      dispatch(getListDoctor({ facilityID }));
+    }
+    if (roleId === "3") {
+      dispatch(getAllFacility());
+      dispatch(
+        getAllAccountByNotRole({
+          roleId: "3",
+        })
+      );
+    }
   }, []);
 
   return (
     <div className="App">
       <div className="header">
-        <Link to="/">
-          <img src={logo} alt="logo" height="100%" />
+        <Link className="anchor-item-link app-name-box" to="/">
+          <span className="app-name">ABook</span>
         </Link>
         <ul className="anchor">
           <li className="anchor-item">
@@ -89,10 +127,20 @@ function App() {
             ""
           )}
 
-          {account?.roleId === "2" ? (
+          {account?.roleId === "4" ? (
             <li className="anchor-item">
               <Link className="anchor-item-link" to="/manage/facility">
                 Quản lý cơ sở
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+
+          {account?.roleId === "4" ? (
+            <li className="anchor-item">
+              <Link className="anchor-item-link" to="/manage/account">
+                Quản lý tài khoản
               </Link>
             </li>
           ) : (
@@ -148,6 +196,7 @@ function App() {
         <Route path="/appointment" element={<AppointmentPage />} />
         <Route path="/manage/appointment" element={<ManageAppointmentPage />} />
         <Route path="/manage/facility" element={<ManageFacilityPage />} />
+        <Route path="/manage/account" element={<ManageAccountPage />} />
         <Route path="/admin/facility" element={<AdminFacilityPage />} />
         <Route path="/admin/account" element={<AdminAccountPage />} />
       </Routes>

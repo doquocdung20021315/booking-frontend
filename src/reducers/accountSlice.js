@@ -21,6 +21,11 @@ export const register = createAsyncThunk("account/register", async (data) => {
   return service?.register(data);
 });
 
+export const authenticate = createAsyncThunk("account/authenticate", async (data) => {
+  const service = servicesManager.serviceAPI;
+  return service?.authenticate(data);
+});
+
 export const getInfoAccount = createAsyncThunk(
   "account/getInfoAccount",
   async (data) => {

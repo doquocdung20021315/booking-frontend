@@ -19,8 +19,12 @@ const AppointmentPage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const roleId = localStorage.getItem("roleId");
     if (token) {
       dispatch(getAllAppointmentAccount({ token }));
+    }
+    if (roleId === "2" || roleId === "3" || roleId === "4") {
+      navigate("/");
     }
   }, []);
 

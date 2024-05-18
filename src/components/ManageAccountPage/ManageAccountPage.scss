@@ -1,4 +1,4 @@
-.admin-account-container {
+.manage-account-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,13 +10,13 @@
   // }
 }
 
-.admin-account-box {
+.manage-account-box {
   background-color: white;
   width: 100%;
   border-radius: 0.5rem;
 }
 
-.admin-account-search {
+.manage-account-search {
   display: flex;
   margin: 1rem;
 
@@ -24,12 +24,12 @@
     height: 2.5rem;
   }
 
-  .ant-input-search-button {
+  .ant-btn {
     height: 2.5rem;
   }
 
-  .ant-btn {
-    height: 2.5rem;
+  .manage-account-add-button {
+    margin-left: 1rem;
   }
 }
 
@@ -37,27 +37,17 @@
   overflow: auto;
 }
 
-.admin-account-table {
+.manage-account-table {
   min-width: 1300px;
 }
 
-.admin-account-create-modal {
+.manage-account-create-modal {
   .create-modal-row {
     margin: 0.5rem 0;
   }
 
   .create-modal-label {
     margin-bottom: 0.25rem;
-  }
-
-  .create-modal-facid-role {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .create-modal-facid, .create-modal-role {
-    width: 45%;
   }
 }
 

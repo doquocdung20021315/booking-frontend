@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   accountId: "",
   roleId: "",
+  facilityID: null,
 };
 
 const criteriaSearchAccountSlice = createSlice({

@@ -9,6 +9,16 @@
   z-index: 10;
 }
 
+.app-name-box {
+  display: flex;
+  align-items: center;
+}
+
+.app-name {
+  font-size: 2rem;
+  margin-left: 1rem;
+}
+
 .anchor {
   list-style-type: none;
   display: flex;

@@ -1,21 +1,22 @@
-import { Button, Input, Modal, Select, Table } from "antd";
+import { Button, Input, Modal, Table } from "antd";
 import Search from "antd/es/input/Search";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "../../components/AdminAccountPage/AdminAccountPage.scss";
+import "../../components/ManageAccountPage/ManageAccountPage.scss";
 import { setCriteriaSearchAccount } from "../../reducers/criteriaSearchAccountSlice";
 import {
   createAccount,
   deleteAccount,
-  getAllAccountByNotRole,
+  getAllAccountByFacilityAndRole,
   searchAccount,
-  setListAccount,
+  setListAccount
 } from "../../reducers/listAccountSlice";
 import { useNavigate } from "react-router-dom";
 
-const AdminAccountPage = () => {
+const ManageAccountPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const account = useSelector((state) => state.account);
   const listAccount = useSelector((state) => state.listAccount);
   const criteriaSearchAccount = useSelector(
     (state) => state.criteriaSearchAccount
@@ -24,13 +25,21 @@ const AdminAccountPage = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const roleId = localStorage.getItem("roleId");
-    if (!token || roleId !== "3") {
+    if (!token || roleId !== "4") {
       navigate("/");
     }
 
     dispatch(
-      getAllAccountByNotRole({
-        roleId: "3",
+      getAllAccountByFacilityAndRole({
+        facilityID: account?.facilityID,
+        roleId: "2",
+      })
+    );
+    dispatch(
+      setCriteriaSearchAccount({
+        ...criteriaSearchAccount,
+        facilityID: account?.facilityID,
+        roleId: "2",
       })
     );
   }, []);
@@ -109,8 +118,7 @@ const AdminAccountPage = () => {
 
   const [createUsername, setCreateUsername] = useState("");
   const [createFullname, setCreateFullname] = useState("");
-  const [createFacilityID, setCreateFacilityID] = useState("");
-  const [createRoleId, setCreateRoleId] = useState(null);
+  
   const [deleteSelectAccount, setDeleteSelectAccount] = useState(null);
 
   const [eM, setEM] = useState("Vui lòng nhập đầy đủ thông tin");
@@ -131,43 +139,9 @@ const AdminAccountPage = () => {
     dispatch(setListAccount(payload));
   };
 
-  const handleSelectRole = async (value) => {
-    if (value !== undefined) {
-      const { payload } = await dispatch(
-        searchAccount({
-          ...criteriaSearchAccount,
-          roleId: value,
-        })
-      );
-      dispatch(
-        setCriteriaSearchAccount({
-          ...criteriaSearchAccount,
-          roleId: value,
-        })
-      );
-      dispatch(setListAccount(payload));
-    } else {
-      const { payload } = await dispatch(
-        searchAccount({
-          ...criteriaSearchAccount,
-          roleId: "",
-        })
-      );
-      dispatch(
-        setCriteriaSearchAccount({
-          ...criteriaSearchAccount,
-          roleId: "",
-        })
-      );
-      dispatch(setListAccount(payload));
-    }
-  };
-
   const handleClickCreate = () => {
     setCreateUsername("");
     setCreateFullname("");
-    setCreateFacilityID("");
-    setCreateRoleId(null);
     const errorMessage = document.getElementById(
       "error-message-create-account"
     );
@@ -183,20 +157,10 @@ const AdminAccountPage = () => {
     setCreateFullname(e.target.value);
   };
 
-  const handleChangeFacilityID = (e) => {
-    setCreateFacilityID(e.target.value);
-  };
-
-  const handleSelectRoleId = (value) => {
-    setCreateRoleId(value);
-  };
-
   const handleOkCreateModal = async () => {
     if (
       createUsername === "" ||
-      createFullname === "" ||
-      createFacilityID === "" ||
-      !createRoleId
+      createFullname === ""
     ) {
       setEM("Vui lòng nhập đầy đủ thông tin");
       const errorMessage = document.getElementById(
@@ -208,8 +172,8 @@ const AdminAccountPage = () => {
         createAccount({
           username: createUsername,
           fullname: createFullname,
-          facilityID: createFacilityID,
-          roleId: createRoleId,
+          facilityID: account?.facilityID,
+          roleId: "2",
         })
       );
 
@@ -266,49 +230,23 @@ const AdminAccountPage = () => {
   };
 
   return (
-    <div className="admin-account-container">
-      <div className="admin-account-box">
-        <div className="admin-account-search">
+    <div className="manage-account-container">
+      <div className="manage-account-box">
+        <div className="manage-account-search">
           <Search
             placeholder="Tìm kiếm mã tài khoản"
             allowClear
             onSearch={onAccountsSearch}
           />
 
-          <Select
-            placeholder="Chọn vai trò"
-            allowClear
-            onChange={handleSelectRole}
-            options={[
-              {
-                value: "1",
-                label: "Khách hàng",
-              },
-              {
-                value: "2",
-                label: "Lễ tân",
-              },
-              {
-                value: "4",
-                label: "Quản lý cơ sở",
-              },
-            ]}
-            style={{
-              minWidth: "130px",
-              height: "2.5rem",
-              marginLeft: "1rem",
-              marginRight: "1rem",
-            }}
-          />
-
-          <Button type="primary" onClick={handleClickCreate}>
+          <Button className="manage-account-add-button" type="primary" onClick={handleClickCreate}>
             Tạo tài khoản
           </Button>
         </div>
 
         <div className="list-account">
           <Table
-            className="admin-account-table"
+            className="manage-account-table"
             columns={columns}
             dataSource={listAccount}
             rowKey={(account) => {
@@ -323,7 +261,7 @@ const AdminAccountPage = () => {
       </div>
 
       <Modal
-        className="admin-account-create-modal"
+        className="manage-account-create-modal"
         open={createModal}
         title="Tạo tài khoản"
         onOk={handleOkCreateModal}
@@ -355,40 +293,6 @@ const AdminAccountPage = () => {
           />
         </div>
 
-        <div className="create-modal-facid-role">
-          <div className="create-modal-row create-modal-facid">
-            <div className="create-modal-label">Mã cơ sở</div>
-            <Input
-              placeholder="Nhập mã cơ sở"
-              value={createFacilityID}
-              onChange={handleChangeFacilityID}
-            />
-          </div>
-
-          <div className="create-modal-row create-modal-role">
-            <div className="create-modal-label">Chức vụ</div>
-            <Select
-              placeholder="Chọn vai trò"
-              allowClear
-              value={createRoleId}
-              onChange={handleSelectRoleId}
-              options={[
-                {
-                  value: "4",
-                  label: "Quản lý cơ sở",
-                },
-                {
-                  value: "2",
-                  label: "Lễ tân",
-                },
-              ]}
-              style={{
-                width: "100%",
-              }}
-            />
-          </div>
-        </div>
-
         <div id="error-message-create-account">{eM}</div>
       </Modal>
 
@@ -412,4 +316,4 @@ const AdminAccountPage = () => {
   );
 };
 
-export default AdminAccountPage;
+export default ManageAccountPage;

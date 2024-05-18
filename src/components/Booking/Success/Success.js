@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Success.scss";
+import { useEffect } from "react";
 
 const Success = () => {
   const navigate = useNavigate();
@@ -11,6 +12,14 @@ const Success = () => {
   const account = useSelector((state) => state.account);
 
   // console.log(location.state);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const roleId = localStorage.getItem("roleId");
+    if (!token || roleId !== "1" || !location.state) {
+      navigate("/");
+    }
+  }, []);
 
   const handleClickBook = () => {
     navigate("/");
@@ -66,7 +75,7 @@ const Success = () => {
         <h4>THÔNG TIN ĐẶT LỊCH</h4>
           <div className="success-facility">
             <div className="success-facility-img">
-              {location.state.facility.service === "Y tế"
+              {location.state?.facility.service === "Y tế"
                 ? <img 
                     src="https://dtnh.hcmulaw.edu.vn/upload/images/LOGO/health-heart-free-vector-icon-800x566.jpg" 
                     alt="img-hospital" 
@@ -79,23 +88,23 @@ const Success = () => {
                   />}
             </div>
             <div>
-              <div className="success-facility-name">{location.state.facility.name}</div>
-              <div>{location.state.facility.location}</div>
+              <div className="success-facility-name">{location.state?.facility.name}</div>
+              <div>{location.state?.facility.location}</div>
             </div>
           </div>
           <hr />
-          {location.state.facility.service === "Y tế"
+          {location.state?.facility.service === "Y tế"
             ? <div className="success-doctor">
                 <div className="success-doctor-icon">
                   <i className="fa-solid fa-user-doctor"></i>
                 </div>
                 <div>
                   <div className="success-doctor-name">
-                    {location.state.doctor.degree + " " + location.state.doctor.name}
+                    {location.state?.doctor.degree + " " + location.state?.doctor.name}
                   </div>
-                  <div>Giới tính: {location.state.doctor.gender}</div>
-                  <div>Chuyên khoa: {location.state.doctor.specialist}</div>
-                  <div>Giá khám: {location.state.doctor.price}đ</div>
+                  <div>Giới tính: {location.state?.doctor.gender}</div>
+                  <div>Chuyên khoa: {location.state?.doctor.specialist}</div>
+                  <div>Giá khám: {location.state?.doctor.price}đ</div>
                 </div>
               </div>
             : <div className="success-specialist">
@@ -104,7 +113,7 @@ const Success = () => {
                 </div>
                 <div>
                   <div className="success-specialist-title">Lĩnh vực</div>
-                  <div>{location.state.specialist}</div>
+                  <div>{location.state?.specialist}</div>
                 </div>
               </div>}
           <hr />
@@ -114,7 +123,7 @@ const Success = () => {
             </div>
             <div>
               <div className="success-datetime-title">Thời gian</div>
-              <div>{location.state.time} ngày {dayjs(location.state.date, "YYYY-MM-DD").format("DD-MM-YYYY")}</div>
+              <div>{location.state?.time} ngày {dayjs(location.state?.date, "YYYY-MM-DD").format("DD-MM-YYYY")}</div>
             </div>
           </div>
       </Card>

@@ -16,15 +16,23 @@ import {
   getListDoctorByID,
 } from "../../reducers/listDoctorSlice";
 import { allProvinces } from "../../utils";
+import { useNavigate } from "react-router-dom";
 
 const ManageFacilityPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const account = useSelector((state) => state.account);
   const facility = useSelector((state) => state.facility);
   const listSpecialist = useSelector((state) => state.listSpecialist);
   const listDoctor = useSelector((state) => state.listDoctor);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const roleId = localStorage.getItem("roleId");
+    if (!token || roleId !== "4") {
+      navigate("/");
+    }
+
     dispatch(
       getInfoFac({
         facilityID: account.facilityID,

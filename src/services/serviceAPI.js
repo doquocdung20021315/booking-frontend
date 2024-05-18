@@ -18,6 +18,12 @@ class ServiceAPI extends ServiceBase {
     return response;
   };
 
+  authenticate = async (data) => {
+    const url = '/account/authenticate';
+    const response = await this.service.post(url, data);
+    return response;
+  };
+
   getInfoAccount = async (data) => {
     const url = '/account/getInfoAccount';
     const response = await this.service.post(url, data);
@@ -38,6 +44,12 @@ class ServiceAPI extends ServiceBase {
 
   getAllAccountByNotRole = async (data) => {
     const url = '/account/getAllAccountByNotRole';
+    const response = await this.service.post(url, data);
+    return response;
+  };
+
+  getAllAccountByFacilityAndRole = async (data) => {
+    const url = '/account/getAllAccountByFacilityAndRole';
     const response = await this.service.post(url, data);
     return response;
   };
