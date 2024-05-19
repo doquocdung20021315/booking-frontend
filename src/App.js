@@ -49,6 +49,7 @@ function App() {
     const token = localStorage.getItem("token");
     const roleId = localStorage.getItem("roleId");
     const facilityID = localStorage.getItem("facilityID");
+    dispatch(getAllFacility());
     if (token) {
       dispatch(getInfoAccount({ token }));
       dispatch(getAllAppointmentAccount({ token }));
@@ -75,7 +76,6 @@ function App() {
       dispatch(getListDoctor({ facilityID }));
     }
     if (roleId === "3") {
-      dispatch(getAllFacility());
       dispatch(
         getAllAccountByNotRole({
           roleId: "3",
