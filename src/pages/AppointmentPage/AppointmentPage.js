@@ -50,6 +50,23 @@ const AppointmentPage = () => {
     navigate("/");
   };
 
+  const tab1 = document.querySelector(".tab1");
+  const tab2 = document.querySelector(".tab2");
+
+  const handleClickTab1 = async () => {
+    tab1?.classList.add("tab-active");
+    tab2?.classList.remove("tab-active");
+    const token = localStorage.getItem("token");
+    await dispatch(getAllAppointmentAccount({ token, status: "1" }));
+  };
+
+  const handleClickTab2 = async () => {
+    tab1?.classList.remove("tab-active");
+    tab2?.classList.add("tab-active");
+    const token = localStorage.getItem("token");
+    await dispatch(getAllAppointmentAccount({ token, status: "2" }));
+  };
+
   const handleClickInfo = (appointment) => {
     setInfoAppointment(appointment);
     setInfoModalOpen(true);
@@ -73,7 +90,7 @@ const AppointmentPage = () => {
       const doctor = await dispatch(
         getInfoDoctor({ doctorID: modifyAppointment.doctorID })
       );
-      
+
       navigate("/booking/datetime", {
         state: {
           doctor: doctor?.payload,
@@ -124,61 +141,94 @@ const AppointmentPage = () => {
 
   return (
     <div className="appointment-container">
-      {listAppointment?.length === 0 ? (
-        <h1 style={{ marginTop: "5rem" }}>Bạn không có lịch hẹn nào.</h1>
-      ) : (
-        ""
-      )}
       {account.fullname !== "" ? (
-        <div className="appointment-list">
-          {listAppointment?.map((appointment, index) => (
-            <Card
-              key={index}
-              className="appointment-card"
-              style={{ marginBottom: "1rem" }}
+        <div className="appointment-box">
+          <div className="appointment-tab-list">
+            <div
+              className="appointment-tab tab1 tab-active"
+              onClick={handleClickTab1}
             >
-              <div className="appointment">
-                <div className="appointment-img">
-                  <img
-                    src={
-                      appointment.service === "Y tế"
-                        ? "https://dtnh.hcmulaw.edu.vn/upload/images/LOGO/health-heart-free-vector-icon-800x566.jpg"
-                        : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4_3kqoCf3mzByz9BAD-iljhvMCU4W8EbQdQ&usqp=CAU"
-                    }
-                    alt="img-hospital"
-                    width="64"
-                  />
+              Lịch hẹn mới
+            </div>
+            <div className="appointment-tab tab2" onClick={handleClickTab2}>
+              Lịch sử
+            </div>
+          </div>
+
+          <div className="appointment-list">
+            {listAppointment?.length === 0 ? (
+              <div className="no-appointment">
+                <h2>Bạn không có lịch hẹn nào.</h2>
+              </div>
+            ) : (
+              ""
+            )}
+            {listAppointment?.map((appointment, index) => (
+              <Card
+                key={index}
+                className={
+                  appointment.status === "2"
+                    ? "appointment-card appointment-card-came"
+                    : appointment.status === "3"
+                    ? "appointment-card appointment-card-not-come"
+                    : "appointment-card"
+                }
+                style={{ marginBottom: "1rem" }}
+              >
+                <div className="appointment">
+                  <div className="appointment-img">
+                    <img
+                      src={
+                        appointment.service === "Y tế"
+                          ? "https://dtnh.hcmulaw.edu.vn/upload/images/LOGO/health-heart-free-vector-icon-800x566.jpg"
+                          : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4_3kqoCf3mzByz9BAD-iljhvMCU4W8EbQdQ&usqp=CAU"
+                      }
+                      alt="img-hospital"
+                      width="64"
+                    />
+                  </div>
+
+                  <div className="appointment-content">
+                    <div className="appointment-name">
+                      {appointment.facilityName}
+                    </div>
+                    <div className="appointment-location">
+                      {appointment.location}
+                    </div>
+                    <div className="appointment-datetime">
+                      {appointment.time} ngày{" "}
+                      {dayjs(appointment.date, "YYYY-MM-DD").format(
+                        "DD-MM-YYYY"
+                      )}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="appointment-content">
-                  <div className="appointment-name">
-                    {appointment.facilityName}
-                  </div>
-                  <div className="appointment-location">
-                    {appointment.location}
-                  </div>
-                  <div className="appointment-datetime">
-                    {appointment.time} ngày {dayjs(appointment.date, "YYYY-MM-DD").format("DD-MM-YYYY")}
-                  </div>
+                <div className="appointment-button-box">
+                  <Button
+                    type="primary"
+                    onClick={() => handleClickInfo(appointment)}
+                  >
+                    Chi tiết
+                  </Button>
+                  {appointment.status === "1" ? (
+                    <Button onClick={() => handleClickModify(appointment)}>
+                      Đổi lịch
+                    </Button>
+                  ) : (
+                    ""
+                  )}
+                  {appointment.status === "1" ? (
+                    <Button onClick={() => handleClickCancel(appointment)}>
+                      Hủy lịch
+                    </Button>
+                  ) : (
+                    ""
+                  )}
                 </div>
-              </div>
-
-              <div className="appointment-button-box">
-                <Button
-                  type="primary"
-                  onClick={() => handleClickInfo(appointment)}
-                >
-                  Chi tiết
-                </Button>
-                <Button onClick={() => handleClickModify(appointment)}>
-                  Đổi lịch
-                </Button>
-                <Button onClick={() => handleClickCancel(appointment)}>
-                  Hủy lịch
-                </Button>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            ))}
+          </div>
         </div>
       ) : (
         <Modal
@@ -265,9 +315,7 @@ const AppointmentPage = () => {
           </div>
           <div>
             <div className="success-code-title">Mã số</div>
-            <div>
-              {infoAppointment?._id}
-            </div>
+            <div>{infoAppointment?._id}</div>
           </div>
         </div>
         <hr />
@@ -330,7 +378,8 @@ const AppointmentPage = () => {
           <div>
             <div className="success-datetime-title">Thời gian</div>
             <div>
-              {infoAppointment?.time} ngày {dayjs(infoAppointment?.date, "YYYY-MM-DD").format("DD-MM-YYYY")}
+              {infoAppointment?.time} ngày{" "}
+              {dayjs(infoAppointment?.date, "YYYY-MM-DD").format("DD-MM-YYYY")}
             </div>
           </div>
         </div>

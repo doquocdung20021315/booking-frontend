@@ -3,23 +3,63 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 15%;
+  padding: 4.5rem 10% 1rem;
+}
+
+.appointment-box {
+  background-color: white;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.appointment-tab-list {
+  display: flex;
+
+  .tab-active {
+    border-bottom: 2px solid #1677ff;
+  }
+}
+
+.appointment-tab {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 1rem 0;
 }
 
 .appointment-list {
-  margin-top: 5rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: space-between;
   width: 100%;
   flex-wrap: wrap;
 }
 
+.no-appointment {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 .appointment-card {
   width: 46%;
+  border: 1px solid #ccc;
+  margin: 0 1rem;
 
   .ant-card-body {
     padding: 1rem;
   }
+}
+
+.appointment-card-came {
+  border-color: #27fa14;
+}
+
+.appointment-card-not-come {
+  border-color: #ff4d4f;
 }
 
 .appointment {
@@ -85,7 +125,7 @@
 
 @media (max-width: 1024px) {
   .appointment-container {
-    padding: 0 5%;
+    padding: 4.5rem 5%;
   }
 
   .appointment-list {
@@ -93,6 +133,7 @@
   }
 
   .appointment-card {
-    width: 100%;
+    width: 92%;
+    margin: 0 4%;
   }
 }
