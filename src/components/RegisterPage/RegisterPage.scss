@@ -1,5 +1,5 @@
 .register-page {
-  height: 100vh;
+  // height: 100vh;
   // width: 100%;
   // background-color: rgb(33, 37, 41);
   display: flex;
@@ -7,7 +7,7 @@
   align-items: center;
   position: relative;
   // z-index: 1;
-  padding-top: 3rem;
+  padding-top: 5rem;
 }
 
 // #error-message {
@@ -203,4 +203,23 @@
 .register-button.ant-btn > span {
   font-size: 16px;
   font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .register-form.ant-form {
+    width: 100%;
+    margin: 0 1rem;
+  }
+  
+  .register-label {
+    width: 80%;
+  }
+
+  .register-form-item.ant-form-item {
+    width: 80%;
+  }
+
+  .register-birthday-gender {
+    width: 80%;
+  }
 }

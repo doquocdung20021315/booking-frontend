@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   height: 100%;
+  padding: 0 5%;
 
   .booking-info-row {
     display: flex;
@@ -24,6 +25,10 @@
 .doctor-main {
   margin-top: 10rem;
   margin-left: 2rem;
+}
+
+.doctor-card {
+  width: 45rem;
 }
 
 .doctor-info {
@@ -69,4 +74,20 @@
   border: none;
   box-shadow: none;
   font-size: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .doctor-container {
+    flex-direction: column;
+    justify-content: start;
+  }
+
+  .doctor-main {
+    margin: 1rem 0;
+    width: 100%;
+  }
+
+  .doctor-card {
+    width: 100%;
+  }
 }

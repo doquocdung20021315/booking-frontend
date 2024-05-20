@@ -47,12 +47,12 @@ const Doctor = () => {
     <div className="doctor-container">
       <div>
         <Card
+          className="info-appointment"
           title="Thông tin đặt lịch"
           headStyle={{
             textAlign: "center",
             fontSize: "1.2rem",
           }}
-          style={{ marginTop: "10rem", width: "18rem" }}
         >
           <div className="booking-info-row">
             <div className="booking-info-icon"><i className="fa-solid fa-building"></i></div>
@@ -72,12 +72,12 @@ const Doctor = () => {
 
       <div className="doctor-main">
         <Card
+          className="doctor-card"
           title="Vui lòng chọn bác sĩ"
           headStyle={{
             textAlign: "center",
             fontSize: "1.2rem",
           }}
-          style={{ width: "45rem" }}
         >
           {listDoctorBooking?.map((doctor, index) => (
             <Card

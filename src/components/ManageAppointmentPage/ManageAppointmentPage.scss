@@ -46,10 +46,28 @@
   }
 }
 
+.list-appointment {
+  overflow: auto;
+}
+
+.manage-appointment-table {
+  min-width: 920px;
+}
+
+.check-button-cancel-appointment {
+  background-color: #ff4d4f;
+}
+
 .check-button-come {
   background-color: #27fa14;
 }
 
 .check-button-not-come {
   background-color: #ff4d4f;
+}
+
+@media (max-width: 768px) {
+  .manage-appointment-search {
+    margin: 1rem 5%;
+  }
 }

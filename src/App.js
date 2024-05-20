@@ -34,12 +34,18 @@ import { setCriteriaSearchAccount } from "./reducers/criteriaSearchAccountSlice"
 import { getInfoFac } from "./reducers/facilitySlice";
 import { getListSpecialist } from "./reducers/listSpecialistSlice";
 import { getListDoctor } from "./reducers/listDoctorSlice";
+import { Dropdown } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
+import { setCriteriaSearchFacility } from "./reducers/criteriaSearchFacilitySlice";
 
 function App() {
   const dispatch = useDispatch();
   const account = useSelector((state) => state.account);
   const criteriaSearchAccount = useSelector(
     (state) => state.criteriaSearchAccount
+  );
+  const criteriaSearchFacility = useSelector(
+    (state) => state.criteriaSearchFacility
   );
 
   // console.log(account);
@@ -50,6 +56,13 @@ function App() {
     const roleId = localStorage.getItem("roleId");
     const facilityID = localStorage.getItem("facilityID");
     dispatch(getAllFacility());
+    dispatch(
+      setCriteriaSearchFacility({
+        ...criteriaSearchFacility,
+        name: "",
+        locationID: "",
+      })
+    );
     if (token) {
       dispatch(getInfoAccount({ token }));
       dispatch(getAllAppointmentAccount({ token }));
@@ -81,8 +94,78 @@ function App() {
           roleId: "3",
         })
       );
+      dispatch(
+        setCriteriaSearchAccount({
+          ...criteriaSearchAccount,
+          accountId: "",
+          roleId: "",
+          facilityID: null,
+        })
+      );
     }
   }, []);
+
+  const items = [
+    {
+      label:
+        account?.roleId === "1" || !account?.roleId ? (
+          <Link className="anchor-item-link" to="/booking/facility">
+            Đặt lịch
+          </Link>
+        ) : account?.roleId === "4" ? (
+          <Link className="anchor-item-link" to="/manage/facility">
+            Quản lý cơ sở
+          </Link>
+        ) : account?.roleId === "3" ? (
+          <Link className="anchor-item-link" to="/admin/facility">
+            Quản lý cơ sở
+          </Link>
+        ) : account?.roleId === "2" ? (
+          <Link className="anchor-item-link" to="/">
+            Trang chủ
+          </Link>
+        ) : (
+          ""
+        ),
+      key: "0",
+    },
+    {
+      label:
+        account?.roleId === "1" || !account?.roleId ? (
+          <Link className="anchor-item-link" to="/appointment">
+            Lịch hẹn
+          </Link>
+        ) : account?.roleId === "2" ? (
+          <Link className="anchor-item-link" to="/manage/appointment">
+            Quản lý lịch hẹn
+          </Link>
+        ) : account?.roleId === "4" ? (
+          <Link className="anchor-item-link" to="/manage/account">
+            Quản lý tài khoản
+          </Link>
+        ) : account?.roleId === "3" ? (
+          <Link className="anchor-item-link" to="/admin/account">
+            Quản lý tài khoản
+          </Link>
+        ) : (
+          ""
+        ),
+      key: "1",
+    },
+    {
+      label:
+        account.fullname !== "" ? (
+          <Link className="anchor-item-link" to="/proflie">
+            {account.fullname}
+          </Link>
+        ) : (
+          <Link className="anchor-item-link" to="/login">
+            Đăng nhập
+          </Link>
+        ),
+      key: "2",
+    },
+  ];
 
   return (
     <div className="App">
@@ -90,6 +173,18 @@ function App() {
         <Link className="anchor-item-link app-name-box" to="/">
           <span className="app-name">ABook</span>
         </Link>
+
+        <Dropdown
+          className="app-menu"
+          menu={{
+            items,
+          }}
+          placement="bottomRight"
+          trigger={["click"]}
+        >
+          <MenuOutlined />
+        </Dropdown>
+
         <ul className="anchor">
           <li className="anchor-item">
             <Link className="anchor-item-link" to="/">

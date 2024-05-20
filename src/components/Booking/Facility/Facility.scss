@@ -20,12 +20,25 @@
   }
 }
 
+.facility-select-province {
+  min-width: 190px;
+  height: 2.5rem;
+  margin-left: 1rem;
+}
+
 .facility-list {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.facility-item {
+  width: 47%;
+  border: 1px solid grey;
+  margin: 1.5rem 0;
+  cursor: pointer;
 }
 
 .facility-content {
@@ -48,4 +61,30 @@
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .facility-container {
+    padding: 0 5%;
+  }
+
+  .facility-search {
+    display: block;
+    margin-top: 5rem;
+  }
+
+  .facility-select-province {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+
+  .facility-list {
+    display: block;
+  }
+
+  .facility-item {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
 }

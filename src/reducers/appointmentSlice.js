@@ -23,6 +23,11 @@ export const deleteAppointmentAccount = createAsyncThunk("appointment/deleteAppo
   return service?.deleteAppointmentAccount(data);
 });
 
+export const deleteAppointment = createAsyncThunk("appointment/deleteAppointment", async (data) => {
+  const service = servicesManager.serviceAPI;
+  return service?.deleteAppointment(data);
+});
+
 export const searchAppointment = createAsyncThunk("appointment/searchAppointment", async (data) => {
   const service = servicesManager.serviceAPI;
   return service?.searchAppointment(data);

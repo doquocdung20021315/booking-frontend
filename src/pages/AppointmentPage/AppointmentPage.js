@@ -135,7 +135,7 @@ const AppointmentPage = () => {
             <Card
               key={index}
               className="appointment-card"
-              style={{ width: "46%", marginBottom: "1rem" }}
+              style={{ marginBottom: "1rem" }}
             >
               <div className="appointment">
                 <div className="appointment-img">

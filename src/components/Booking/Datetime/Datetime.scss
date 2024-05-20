@@ -2,6 +2,11 @@
   display: flex;
   justify-content: center;
   height: 100%;
+  padding: 0 5%;
+
+  .info-appointment {
+    margin-top: 5rem;
+  }
 
   .booking-info-row {
     display: flex;
@@ -24,6 +29,10 @@
 .datetime-main {
   margin-top: 5rem;
   margin-left: 2rem;
+}
+
+.datetime-card {
+  width: 45rem;
 }
 
 .session {
@@ -49,8 +58,6 @@
   border-color: transparent;
 }
 
-
-
 .datetime-button-box {
   margin: 1rem 0;
 }
@@ -60,4 +67,24 @@
   border: none;
   box-shadow: none;
   font-size: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .datetime-container {
+    flex-direction: column;
+    justify-content: start;
+  }
+
+  .datetime-main {
+    margin: 1rem 0;
+    width: 100%;
+  }
+
+  .datetime-card {
+    width: 100%;
+  }
+
+  .time-booking-button {
+    margin: 0.8rem 0.4rem 0 0;
+  }
 }

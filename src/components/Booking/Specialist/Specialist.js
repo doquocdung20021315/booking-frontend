@@ -54,12 +54,12 @@ const Specialist = () => {
     <div className="specialist-container">
       <div>
         <Card
+          className="info-appointment"
           title="Thông tin đặt lịch"
           headStyle={{
             textAlign: "center",
             fontSize: "1.2rem",
           }}
-          style={{ marginTop: "10rem", width: "18rem" }}
         >
           <div className="booking-info-row">
             <div className="booking-info-icon">
@@ -74,6 +74,7 @@ const Specialist = () => {
 
       <div className="specialist-main">
         <Card
+          className="specialist-card"
           title={
             location.state?.facility.service === "Y tế"
               ? "Vui lòng chọn chuyên khoa"
@@ -83,7 +84,6 @@ const Specialist = () => {
             textAlign: "center",
             fontSize: "1.2rem",
           }}
-          style={{ width: "45rem" }}
         >
           {listSpecialist?.map((specialist, index) => (
             <div

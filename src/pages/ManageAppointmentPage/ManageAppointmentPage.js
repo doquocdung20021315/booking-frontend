@@ -6,6 +6,7 @@ import "../../components/ManageAppointmentPage/ManageAppointmentPage.scss";
 import { getInfoAcc } from "../../reducers/accountSlice";
 import {
   checkAppointment,
+  deleteAppointment,
   getAllAppointmentFacility,
   searchAppointmentByObjectId,
   setListAppointment,
@@ -137,6 +138,23 @@ const ManageAppointmentPage = () => {
     dispatch(setListAppointment(payload));
   };
 
+  const handleCancelAppointment = async () => {
+    await dispatch(
+      deleteAppointment({
+        appointmentId: appointmentSelect._id,
+      })
+    );
+    const { payload } = await dispatch(
+      searchAppointmentByObjectId({
+        appointmentId: searchValue,
+        facilityID: account.facilityID,
+        status: `${showTable}`,
+      })
+    );
+    dispatch(setListAppointment(payload));
+    setInfoModalOpen(false);
+  }
+
   const handleCancelInfoModal = () => {
     setInfoModalOpen(false);
   };
@@ -211,8 +229,9 @@ const ManageAppointmentPage = () => {
           />
         </div>
 
-        <div className="manage-appointment-table">
+        <div className="list-appointment">
           <Table
+            className="manage-appointment-table"
             columns={columns}
             dataSource={listAppointment}
             onRow={(appoint) => {
@@ -248,6 +267,13 @@ const ManageAppointmentPage = () => {
         footer={
           appointmentSelect?.status === "1"
             ? [
+                <Button
+                  className="check-button-cancel-appointment"
+                  key="cancel"
+                  onClick={handleCancelAppointment}
+                >
+                  Hủy lịch
+                </Button>,
                 <Button key="back" onClick={handleCancelInfoModal}>
                   Đóng
                 </Button>,

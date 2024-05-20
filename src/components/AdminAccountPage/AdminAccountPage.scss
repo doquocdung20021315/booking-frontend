@@ -33,6 +33,16 @@
   }
 }
 
+.admin-account-role-add-button {
+  display: flex;
+}
+
+.admin-account-role {
+  min-width: 130px;
+  height: 2.5rem;
+  margin: 0 1rem;
+}
+
 .list-account {
   overflow: auto;
 }
@@ -68,4 +78,18 @@
 
 #error-message-create-account.error-message-create-account-block {
   display: block;
+}
+
+@media (max-width: 768px) {
+  .admin-account-search {
+    display: block;
+  }
+
+  .admin-account-role-add-button {
+    margin-top: 0.5rem;
+  }
+
+  .admin-account-role {
+    margin-left: 0;
+  }
 }

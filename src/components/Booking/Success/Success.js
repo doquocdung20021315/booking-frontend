@@ -31,12 +31,12 @@ const Success = () => {
       <p className="success-text">Đặt lịch thành công</p>
 
       <Card
+        className="success-info"
         title="Thông tin lịch hẹn"
         headStyle={{
           textAlign: "center",
           fontSize: "1.2rem",
         }}
-        style={{ width: "30rem" }}
       >
         <h4>THÔNG TIN CÁ NHÂN</h4>
         <div>
@@ -61,7 +61,7 @@ const Success = () => {
             </div>
           </div>
           <div className="success-profile-row">
-            <div className="success-profile-cell">
+            <div className="success-profile-cell success-profile-email">
               <div>
                 <i className="fa-solid fa-envelope"></i>
               </div>

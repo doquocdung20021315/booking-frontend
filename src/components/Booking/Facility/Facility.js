@@ -28,6 +28,13 @@ const Facility = () => {
     }
 
     dispatch(getAllFacility());
+    dispatch(
+      setCriteriaSearchFacility({
+        ...criteriaSearchFacility,
+        name: "",
+        locationID: "",
+      })
+    );
   }, []);
 
   // console.log(listFacility);
@@ -111,6 +118,7 @@ const Facility = () => {
           onSearch={onFacilitiesSearch}
         />
         <Select
+          className="facility-select-province"
           placeholder="Chọn tỉnh/thành phố"
           allowClear
           onChange={handleSelectProvince}
@@ -118,25 +126,15 @@ const Facility = () => {
             value: province.provinceId,
             label: province.provinceName,
           }))}
-          style={{ minWidth: "190px", height: "2.5rem", marginLeft: "1rem" }}
         />
       </div>
       <div className="facility-list">
         {listFacility?.map((facility, index) => (
           <Card
+            className="facility-item"
             key={index}
             size="small"
-            // title={facility.name}
-            style={{
-              width: "47%",
-              // height: "10rem",
-              border: "1px solid grey",
-              margin: "1.5rem 0",
-              cursor: "pointer",
-            }}
-            // onClick={() => handleClickFacility(facility)}
           >
-            {/* <p>{facility.location}</p> */}
             <Meta
               className="facility-content"
               avatar={

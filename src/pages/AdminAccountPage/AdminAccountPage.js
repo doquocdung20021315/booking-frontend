@@ -33,6 +33,14 @@ const AdminAccountPage = () => {
         roleId: "3",
       })
     );
+    dispatch(
+      setCriteriaSearchAccount({
+        ...criteriaSearchAccount,
+        accountId: "",
+        roleId: "",
+        facilityID: null,
+      })
+    );
   }, []);
 
   const columns = [
@@ -275,35 +283,32 @@ const AdminAccountPage = () => {
             onSearch={onAccountsSearch}
           />
 
-          <Select
-            placeholder="Chọn vai trò"
-            allowClear
-            onChange={handleSelectRole}
-            options={[
-              {
-                value: "1",
-                label: "Khách hàng",
-              },
-              {
-                value: "2",
-                label: "Lễ tân",
-              },
-              {
-                value: "4",
-                label: "Quản lý cơ sở",
-              },
-            ]}
-            style={{
-              minWidth: "130px",
-              height: "2.5rem",
-              marginLeft: "1rem",
-              marginRight: "1rem",
-            }}
-          />
+          <div className="admin-account-role-add-button">
+            <Select
+              className="admin-account-role"
+              placeholder="Chọn vai trò"
+              allowClear
+              onChange={handleSelectRole}
+              options={[
+                {
+                  value: "1",
+                  label: "Khách hàng",
+                },
+                {
+                  value: "2",
+                  label: "Lễ tân",
+                },
+                {
+                  value: "4",
+                  label: "Quản lý cơ sở",
+                },
+              ]}
+            />
 
-          <Button type="primary" onClick={handleClickCreate}>
-            Tạo tài khoản
-          </Button>
+            <Button type="primary" onClick={handleClickCreate}>
+              Tạo tài khoản
+            </Button>
+          </div>
         </div>
 
         <div className="list-account">

@@ -37,3 +37,23 @@
 .anchor-item-link:hover {
   color: blue;
 }
+
+.app-menu {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .app-menu {
+    display: inline-flex;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .anchor {
+    display: none;
+  }
+
+  .anchor-item-link {
+    font-size: 1.2rem;
+  }
+}

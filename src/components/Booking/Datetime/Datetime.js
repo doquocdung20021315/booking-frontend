@@ -556,12 +556,12 @@ const Datetime = () => {
     <div className="datetime-container">
       <div>
         <Card
+          className="info-appointment"
           title="Thông tin đặt lịch"
           headStyle={{
             textAlign: "center",
             fontSize: "1.2rem",
           }}
-          style={{ marginTop: "5rem", width: "18rem" }}
         >
           <div className="booking-info-row">
             <div className="booking-info-icon">
@@ -612,12 +612,12 @@ const Datetime = () => {
 
       <div className="datetime-main">
         <Card
+          className="datetime-card"
           title="Vui lòng chọn lịch hẹn"
           headStyle={{
             textAlign: "center",
             fontSize: "1.2rem",
           }}
-          style={{ width: "45rem" }}
         >
           <Calendar
             fullscreen={false}

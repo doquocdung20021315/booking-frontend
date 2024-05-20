@@ -29,6 +29,13 @@ const AdminFacilityPage = () => {
     }
 
     dispatch(getAllFacility());
+    dispatch(
+      setCriteriaSearchFacility({
+        ...criteriaSearchFacility,
+        name: "",
+        locationID: "",
+      })
+    );
   }, []);
 
   const columns = [
@@ -150,21 +157,25 @@ const AdminFacilityPage = () => {
       !addLocationID ||
       addLocation === ""
     ) {
-      const errorMessage = document.getElementById("error-message-add-facility");
+      const errorMessage = document.getElementById(
+        "error-message-add-facility"
+      );
       errorMessage?.classList.add("error-message-add-facility-block");
     } else {
       let lo = "";
       allProvinces?.map((province) => {
         if (province.provinceId === addLocationID) {
-          lo = addLocation + ", " + province.provinceName
+          lo = addLocation + ", " + province.provinceName;
         }
       });
-      await dispatch(addFacility({
-        name: addFacilityName,
-        location: lo,
-        locationID: addLocationID,
-        service: addService,
-      }));
+      await dispatch(
+        addFacility({
+          name: addFacilityName,
+          location: lo,
+          locationID: addLocationID,
+          service: addService,
+        })
+      );
       await dispatch(
         searchFacility({
           ...criteriaSearchFacility,
@@ -184,9 +195,11 @@ const AdminFacilityPage = () => {
   };
 
   const handleOkDeleteModal = async () => {
-    await dispatch(deleteFacility({
-      facilityID: deleteSelectFacility.facilityID,
-    }));
+    await dispatch(
+      deleteFacility({
+        facilityID: deleteSelectFacility.facilityID,
+      })
+    );
     await dispatch(
       searchFacility({
         ...criteriaSearchFacility,
@@ -209,29 +222,27 @@ const AdminFacilityPage = () => {
             onSearch={onFacilitiesSearch}
           />
 
-          <Select
-            placeholder="Chọn tỉnh/thành phố"
-            allowClear
-            onChange={handleSelectProvince}
-            options={allProvinces?.map((province) => ({
-              value: province.provinceId,
-              label: province.provinceName,
-            }))}
-            style={{
-              minWidth: "190px",
-              height: "2.5rem",
-              marginLeft: "1rem",
-              marginRight: "1rem",
-            }}
-          />
+          <div className="admin-facility-province-add-button">
+            <Select
+              className="admin-facility-province"
+              placeholder="Chọn tỉnh/thành phố"
+              allowClear
+              onChange={handleSelectProvince}
+              options={allProvinces?.map((province) => ({
+                value: province.provinceId,
+                label: province.provinceName,
+              }))}
+            />
 
-          <Button type="primary" onClick={handleClickAdd}>
-            Thêm cơ sở
-          </Button>
+            <Button type="primary" onClick={handleClickAdd}>
+              Thêm cơ sở
+            </Button>
+          </div>
         </div>
 
-        <div>
+        <div className="list-facility">
           <Table
+            className="admin-facility-table"
             columns={columns}
             dataSource={listFacility}
             rowKey={(facility) => {

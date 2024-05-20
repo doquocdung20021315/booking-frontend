@@ -36,19 +36,23 @@
   }
 
   .specialist-name {
-    cursor: pointer;
     font-weight: 500;
   }
+}
 
-  .specialist-name:hover {
-    color: blue;
-  }
+.manage-facility-info {
+  width: 49%;
+}
+
+.manage-facility-specialist {
+  width: 49%;
 }
 
 .manage-facility-list-doctor {
   background-color: white;
   border-radius: 6px;
   width: 100%;
+  overflow: auto;
 }
 
 .manage-facility-doctor-row {
@@ -67,6 +71,10 @@
   .add-doctor-button {
     margin-left: 1rem;
   }
+}
+
+.manage-facility-doctor-table {
+  min-width: 990px;
 }
 
 .modify-facility-modal {
@@ -104,4 +112,19 @@
 
 #error-message-add-doctor.error-message-add-doctor-block {
   display: block;
+}
+
+@media (max-width: 1024px) {
+  .manage-facility-box {
+    display: block;
+  }
+
+  .manage-facility-info {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .manage-facility-specialist {
+    width: 100%;
+  }
 }

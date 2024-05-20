@@ -326,9 +326,11 @@ const ManageFacilityPage = () => {
   };
 
   const handleOkDeleteDoctorModal = async () => {
-    await dispatch(deleteDoctor({
-      doctorID: deleteSelectDoctor.doctorID,
-    }));
+    await dispatch(
+      deleteDoctor({
+        doctorID: deleteSelectDoctor.doctorID,
+      })
+    );
     await dispatch(
       getListDoctorByID({
         facilityID: facility?.facilityID,
@@ -346,13 +348,13 @@ const ManageFacilityPage = () => {
     <div className="manage-facility-container">
       <div className="manage-facility-box">
         <Card
+          className="manage-facility-info"
           title="Thông tin cơ sở dịch vụ"
           extra={
             <Button type="primary" onClick={handleModifyFacility}>
               Chỉnh sửa
             </Button>
           }
-          style={{ width: "49%" }}
         >
           <div>
             <span className="facility-title">Tên cơ sở:</span> {facility?.name}
@@ -367,13 +369,13 @@ const ManageFacilityPage = () => {
         </Card>
 
         <Card
+          className="manage-facility-specialist"
           title={facility?.service === "Y tế" ? "Chuyên khoa" : "Lĩnh vực"}
           extra={
             <Button type="primary" onClick={handleAddSpecialist}>
               Thêm {facility?.service === "Y tế" ? "chuyên khoa" : "lĩnh vực"}
             </Button>
           }
-          style={{ width: "49%" }}
         >
           <div className="specialist-list">
             {listSpecialist?.map((specialist, index) => (
@@ -413,6 +415,7 @@ const ManageFacilityPage = () => {
           </div>
 
           <Table
+            className="manage-facility-doctor-table"
             columns={columns}
             dataSource={listDoctor}
             rowKey={(doctor) => {

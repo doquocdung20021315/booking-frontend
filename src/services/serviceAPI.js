@@ -190,6 +190,12 @@ class ServiceAPI extends ServiceBase {
     return response;
   };
 
+  deleteAppointment = async (data) => {
+    const url = '/appointment/deleteAppointment';
+    const response = await this.service.delete(url, { data });
+    return response;
+  };
+
   searchAppointment = async (data) => {
     const url = '/appointment/searchAppointment';
     const response = await this.service.post(url, data);
