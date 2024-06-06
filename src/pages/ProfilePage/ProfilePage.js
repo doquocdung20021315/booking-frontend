@@ -145,6 +145,7 @@ const ProfilePage = () => {
         email: "",
         username: "",
         _id: "",
+        accountId: "",
       })
     );
     navigate("/");

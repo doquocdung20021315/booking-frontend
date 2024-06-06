@@ -9,6 +9,7 @@ const initialState = {
   email: "",
   username: "",
   _id: "",
+  accountId: "",
 };
 
 export const login = createAsyncThunk("account/login", async (data) => {

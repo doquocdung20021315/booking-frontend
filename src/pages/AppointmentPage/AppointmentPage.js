@@ -315,7 +315,7 @@ const AppointmentPage = () => {
           </div>
           <div>
             <div className="success-code-title">Mã số</div>
-            <div>{infoAppointment?._id}</div>
+            <div>{infoAppointment?.appointmentId}</div>
           </div>
         </div>
         <hr />

@@ -46,7 +46,7 @@ const AdminAccountPage = () => {
   const columns = [
     {
       title: "Mã tài khoản",
-      dataIndex: "_id",
+      dataIndex: "accountId",
       key: "1",
     },
     {

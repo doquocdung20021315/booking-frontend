@@ -8,7 +8,7 @@ import {
   checkAppointment,
   deleteAppointment,
   getAllAppointmentFacility,
-  searchAppointmentByObjectId,
+  searchAppointment,
   setListAppointment,
 } from "../../reducers/appointmentSlice";
 import dayjs from "dayjs";
@@ -47,7 +47,7 @@ const ManageAppointmentPage = () => {
   const columns = [
     {
       title: "Mã số",
-      dataIndex: "_id",
+      dataIndex: "appointmentId",
       key: "1",
     },
     {
@@ -85,7 +85,7 @@ const ManageAppointmentPage = () => {
     tab3?.classList.remove("tab-active");
     setShowTable(1);
     const { payload } = await dispatch(
-      searchAppointmentByObjectId({
+      searchAppointment({
         appointmentId: searchValue,
         facilityID: account.facilityID,
       })
@@ -99,7 +99,7 @@ const ManageAppointmentPage = () => {
     tab3?.classList.remove("tab-active");
     setShowTable(2);
     const { payload } = await dispatch(
-      searchAppointmentByObjectId({
+      searchAppointment({
         appointmentId: searchValue,
         facilityID: account.facilityID,
         status: "2",
@@ -114,7 +114,7 @@ const ManageAppointmentPage = () => {
     tab3?.classList.add("tab-active");
     setShowTable(3);
     const { payload } = await dispatch(
-      searchAppointmentByObjectId({
+      searchAppointment({
         appointmentId: searchValue,
         facilityID: account.facilityID,
         status: "3",
@@ -129,7 +129,7 @@ const ManageAppointmentPage = () => {
 
   const onAppointmentsSearch = async (value) => {
     const { payload } = await dispatch(
-      searchAppointmentByObjectId({
+      searchAppointment({
         appointmentId: value,
         facilityID: account.facilityID,
         status: `${showTable}`,
@@ -145,7 +145,7 @@ const ManageAppointmentPage = () => {
       })
     );
     const { payload } = await dispatch(
-      searchAppointmentByObjectId({
+      searchAppointment({
         appointmentId: searchValue,
         facilityID: account.facilityID,
         status: `${showTable}`,
@@ -153,7 +153,7 @@ const ManageAppointmentPage = () => {
     );
     dispatch(setListAppointment(payload));
     setInfoModalOpen(false);
-  }
+  };
 
   const handleCancelInfoModal = () => {
     setInfoModalOpen(false);
@@ -167,7 +167,7 @@ const ManageAppointmentPage = () => {
       })
     );
     const { payload } = await dispatch(
-      searchAppointmentByObjectId({
+      searchAppointment({
         appointmentId: searchValue,
         facilityID: account.facilityID,
         status: `${showTable}`,
@@ -185,7 +185,7 @@ const ManageAppointmentPage = () => {
       })
     );
     const { payload } = await dispatch(
-      searchAppointmentByObjectId({
+      searchAppointment({
         appointmentId: searchValue,
         facilityID: account.facilityID,
         status: `${showTable}`,
@@ -292,6 +292,19 @@ const ManageAppointmentPage = () => {
                   Không đến
                 </Button>,
               ]
+            : appointmentSelect?.status === "3"
+            ? [
+                <Button key="back" onClick={handleCancelInfoModal}>
+                  Đóng
+                </Button>,
+                <Button
+                  className="check-button-come"
+                  key="came"
+                  onClick={handleCame}
+                >
+                  Đã đến
+                </Button>,
+              ]
             : [
                 <Button key="back" onClick={handleCancelInfoModal}>
                   Đóng
@@ -357,7 +370,7 @@ const ManageAppointmentPage = () => {
           </div>
           <div>
             <div className="success-code-title">Mã số</div>
-            <div>{appointmentSelect?._id}</div>
+            <div>{appointmentSelect?.appointmentId}</div>
           </div>
         </div>
         <hr />
